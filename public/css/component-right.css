@@ -1,0 +1,93 @@
+/*.container {
+	display: flex;
+	flex-direction: column;
+	background-color: #DDD;
+	justify-content: flex-start;
+	height: 250px;
+	align-items: stretch;
+}*/
+/*flex-3: flex-basis: <length>;*/
+/*flex-4: flex-grow: <number>;*/  /*chia phan dư còn lại*/
+/*flex-5: flex-shrink: 1* | <number>;*/   
+/*flex-6: order: 0* | <number>*/  /*đổi vị trí */
+/*flex-7: justify-content | flex-start*, flex-end, center, space-between, space-around/  /căn theo hướng flex-diẻction/
+/*/*/*flex-8: align-items | /flex-start, flex-end, center, baseline, stretch*   /hướng vuông góc với flex-direction/*/*/
+/**/
+
+
+
+body {
+
+}
+
+
+.container .sidebar .components-right {
+	max-width: auto;
+	max-height: auto;
+	display: flex;
+	margin: 15px 0;
+}
+
+.container .sidebar .components-right .image {
+	margin-right: 10px;
+
+}
+
+.container .sidebar .components-right .image a {
+	list-style-type: none;
+	text-decoration: none;
+}
+
+.container .sidebar .components-right .image a img {
+	height: 100px;
+	width: 100px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	transform: scale(1);  
+		
+	transition: all 0.5s;
+
+}
+
+.container .sidebar .components-right .image a img:hover {
+	transform: scale(1.05);
+	
+}
+
+.container .sidebar .components-right .content {
+	display: flex;
+	flex-direction: column;
+
+}
+
+.container .sidebar .components-right .content a h4{
+	margin: 0;
+	overflow: hidden;
+}
+
+.container .sidebar .components-right .content a {
+	flex-grow: 1;
+}
+
+.container .sidebar .components-right .content a {
+	color: black;
+}
+
+.container .sidebar .components-right .content a:hover{
+	color: #2fa1b3;
+}
+
+.container .sidebar .components-right .content .link{
+	align-items: flex-end;
+}
+
+.container .sidebar .components-right .content .link a{
+	text-decoration: none;
+	list-style-type: none;
+	color: #adb5bd;
+	margin-right: 10px;
+}
+
+.container .sidebar .components-right .content .link a:hover{
+	color: #2fa1b3;
+}

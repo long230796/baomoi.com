@@ -1,0 +1,38 @@
+body {
+
+}
+
+.container .content .tin-tong-hop {
+	display: flex;
+	flex-direction: column;
+	margin-right: 15px;
+	padding: 15px 0;
+	width: 200px;
+}
+
+.container .content .tin-tong-hop .image {
+	overflow: hidden;
+}
+
+.container .content .tin-tong-hop .image img {
+	background-size: cover;
+	background-repeat: no-repeat;
+	transform: scale(1);  
+	width: 200px;
+	transition: all 0.5s;
+}
+
+.container .content .tin-tong-hop .image:hover img {
+	transform: scale(1.05);
+}
+
+.container .content .tin-tong-hop .content .link a{
+	text-decoration: none;
+	list-style-type: none;
+	color: #adb5bd;
+	margin-right: 10px;
+}
+
+.container .content .tin-tong-hop .content .link a:hover{
+	color: #2fa1b3;
+}

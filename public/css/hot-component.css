@@ -1,0 +1,45 @@
+body {
+
+}
+
+.container .content .hot-components {
+	display: flex;
+	flex-direction: column;
+	margin-right: 15px;
+	padding: 15px 0;
+}
+
+.container .content .hot-components .image {
+	overflow: hidden;
+}
+
+.container .content .hot-components .image img {
+	background-size: cover;
+	background-repeat: no-repeat;
+	transform: scale(1);  
+	width: 100%;
+	transition: all 0.5s;
+}
+
+.container .content .hot-components .image:hover img {
+	transform: scale(1.05);
+}
+
+.container .content .hot-components .content a {
+	color: black;
+}
+
+.container .content .hot-components .content a:hover{
+	color: #2fa1b3;
+}
+
+.container .content .hot-components .content .link a{
+	text-decoration: none;
+	list-style-type: none;
+	color: #adb5bd;
+	margin-right: 10px;
+}
+
+.container .content .hot-components .content .link a:hover{
+	color: #2fa1b3;
+}
