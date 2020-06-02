@@ -21,5 +21,8 @@ router.post('/updateNews/:id',
 	indexController.updateNews
 )
 
+router.post('/deleteNews/:id', indexController.deleteNews)
+
+
 
 module.exports = router

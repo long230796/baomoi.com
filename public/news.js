@@ -78,6 +78,79 @@ function scriptAddNews() {
 	
 }
 
+
+function scriptAddSource() {
+	var title = document.getElementsByClassName("title-update")[0].value
+	var content = document.getElementsByClassName("content-update")[0].value
+	var addImage = document.getElementsByClassName("image-update")[0].value
+	var hashtag = document.getElementsByClassName("hashtag-update")[0].value
+	var source = document.getElementsByClassName("source-update")[0].value
+	// target alert 
+	var titleAlert = document.getElementsByClassName('titleAlert')[0]
+	var contentAlert = document.getElementsByClassName('contentAlert')[0]
+	var imageAlert = document.getElementsByClassName('imageAlert')[0]
+	var hashtagAlert = document.getElementsByClassName('hashtagAlert')[0]
+	var sourceAlert = document.getElementsByClassName('sourceAlert')[0]
+
+
+	if (!title) {
+		titleAlert.style.display = "block"
+	} else {
+		titleAlert.style.display = "none"
+	}
+
+	if (!content) {
+		contentAlert.style.display = "block"
+	} else {
+		contentAlert.style.display = "none"
+	}
+
+	if (!addImage) {
+		imageAlert.style.display = "block"
+	} else {
+		imageAlert.style.display = "none"
+	}
+
+	if (!source) {
+		sourceAlert.style.display = "block"
+	} else {
+		sourceAlert.style.display = "none"
+	}
+
+	if (!hashtag) {
+		hashtagAlert.textContent = "Require hastag"
+		hashtagAlert.style.display = "block"
+	} else {
+		if (hashtag.charAt(0) == "#") {
+			hashtagAlert.style.display = "none"
+		} else {
+			hashtagAlert.style.display = "block"
+			hashtagAlert.textContent = "Require # at first hashtag"
+
+		}
+	}
+
+	
+	if (title && content && hashtag.charAt(0) == "#" && addImage && source) {
+		var checkCode = prompt('please enter secret code', 'code here')
+		if (checkCode != null) {
+			if ( checkCode == "demo") {
+			    var r = confirm("you want to add news");
+			    if (r == true) {
+					var addBtn = document.getElementsByClassName('add-btn')[0]
+					addBtn.setAttribute("type", "submit")
+					addBtn.removeAttribute("onclick")
+					addBtn.click();
+			    }
+			} else {
+			  alert("wrong password");
+			}
+
+		}
+	}
+	
+}
+
 function displayForm(value) {
 	var array = value.split('-')
 	var theloai = array[0]
