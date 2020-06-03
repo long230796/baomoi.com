@@ -18,7 +18,7 @@ module.exports.getSearch = async function (req, res) {
 	    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
 	    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
 	    str = str.replace(/đ/g,"d");
-	    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
+	    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
 	    str = str.replace(/ + /g," ");
 	    str = str.trim(); 
 	    return str;
@@ -105,10 +105,23 @@ module.exports.getSearch = async function (req, res) {
 			case "phap luat":
 				res.redirect("/phapluat")
 				break;
-			default:
-
+			case "tinmoi":
+			case "baomoi":
+			case "moinhat":
+			case "hot":
+			case "tin hot":
+			case "tin moi":
+			case "bao moi":
+			case "moi nhat":
 				var tableTinmoi = await Tinmoi.find({})	
-				var result = {errors: true}			
+				res.render("timkiem/timkiem.pug", {
+					news: tableTinmoi,
+					querys: req.query.q
+				})
+
+			default:
+				var tableTinmoi = await Tinmoi.find({})	
+				var result = {errors: true, querys: req.query.q}			
 				
 				if (node.query == "video") {
 					// tìm kiếm video
@@ -122,24 +135,135 @@ module.exports.getSearch = async function (req, res) {
 						return filterTitle.indexOf(node.query) !== -1;
 					})
 
+					// hashtag lien quan
+					var hashtaglienquan = tableTinmoi.filter(function (obj) {
+						var filterHashtag = filterQuery(obj.hashtag);
+						return filterHashtag.indexOf(node.query) !== -1;
+					})
+
+					// source lien quan
+					var sourcelienquan = tableTinmoi.filter(function (obj) {
+						if (obj.source) {
+							var filterHashtag = filterQuery(obj.source);
+							return filterHashtag.indexOf(node.query) !== -1;
+						}
+					})
+
+					function transformToObj (array) {
+					  return array.filter(function (item) {
+					    return typeof(item) == 'object'
+					  })
+					}
+
+					// tin lien quan = tinlienquan + title
+					var tinlienquan = []
+					tinlienquan = tinlienquan.concat(transformToObj(hashtaglienquan))
+					tinlienquan = tinlienquan.concat(transformToObj(sourcelienquan))
+					tinlienquan = tinlienquan.concat(transformToObj(title))
+
+					// phần tử xuất hiện ở title sẽ không xuất hiện ở tinlienquan
+					function xoaphantutrungnhau(tinlienquan, tinbatki) {
+						for (var i = 0; i < tinlienquan.length; i ++) {
+						  for (var j = 0; j < tinbatki.length; j ++) {
+						    if (tinlienquan[i].id == tinbatki[j].id) {
+						      tinlienquan.splice(i, 1);   
+						      i --  
+						      break;
+						    }
+						  }
+						}
+
+					}
+
+					xoaphantutrungnhau(tinlienquan, title)
+					xoaphantutrungnhau(tinlienquan, video)
+
+					
+					if (tinlienquan[0]){
+						result.tinlienquan = tinlienquan
+						result.errors = false				
+					}
+
+					if (title[0]) {
+						result.news = title
+						result.errors = false	
+					}
+
 					if (video[0]){
 						result.videos = video
 						result.errors = false				
 					}
 					if (title[0]) {
-						result.titles = title
+						result.news = title
 						result.errors = false
 					}
 					res.render("timkiem/timkiem.pug", result)
 
+				// tim kiem theo hashtag
+				} else if (node.query.charAt(0) == "#") {
+					// remove space from string
+					node.query = node.query.split(" ").join("");
+
+					// tim kiếm
+					var hashtag = await Tinmoi.find({hashtag: node.query})
+					if (hashtag[0]) {
+						result.news = hashtag
+						result.errors = false
+					}
+
+					res.render("timkiem/timkiem.pug", result)
+
+				// nếu không thì trả về kết quả là tìm kiếm theo tiêu đề
 				} else {
 					var title = tableTinmoi.filter(function (obj) {
 						var filterTitle = filterQuery(obj.title);
 						return filterTitle.indexOf(node.query) !== -1;
 					})
 
+					// hashtag lien quan
+					var hashtaglienquan = tableTinmoi.filter(function (obj) {
+						var filterHashtag = filterQuery(obj.hashtag);
+						return filterHashtag.indexOf(node.query) !== -1;
+					})
+
+					// source lien quan
+					var sourcelienquan = tableTinmoi.filter(function (obj) {
+						if (obj.source) {
+							var filterHashtag = filterQuery(obj.source);
+							return filterHashtag.indexOf(node.query) !== -1;
+						}
+					})
+
+					function transformToObj (array) {
+					  return array.filter(function (item) {
+					    return typeof(item) == 'object'
+					  })
+					}
+
+					// tin lien quan = tinlienquan + title
+					var tinlienquan = []
+					tinlienquan = tinlienquan.concat(transformToObj(hashtaglienquan))
+					tinlienquan = tinlienquan.concat(transformToObj(sourcelienquan))
+					tinlienquan = tinlienquan.concat(transformToObj(title))
+
+					// phần tử xuất hiện ở title sẽ không xuất hiện ở tinlienquan
+					for (var i = 0; i < tinlienquan.length; i ++) {
+					  for (var j = 0; j < title.length; j ++) {
+					    if (tinlienquan[i].id == title[j].id) {
+					      tinlienquan.splice(i, 1);   
+					      i --  
+					      break;
+					    }
+					  }
+					}
+
+					
+					if (tinlienquan[0]){
+						result.tinlienquan = tinlienquan
+						result.errors = false				
+					}
 					if (title[0]) {
-						result.titles = title
+						result.news = title
 						result.errors = false	
 					}
 					

@@ -16,7 +16,7 @@ module.exports.postLogin = async function(req, res) {
 	var name = req.body.name;
 	var password = req.body.password;
 	var admin = await Admin.findOne({ name: name})
-	console.log(req.body.name)
+	// console.log(req.body.name)
 
 	if (!admin) {
 		res.render('admin/login', {
@@ -73,16 +73,16 @@ module.exports.postNews = async function(req, res) {
 	var uploads = req.files;
 	for (var upload of uploads ) {
 		if (upload.mimetype == "video/mp4") {
-			videoPath = upload.path.split('/').slice(1).join('/')
+			videoPath = upload.path.split('/').slice(1).join('/')  // cu phap gan video
 		} else {
-			imagePath = upload.path.split('/').slice(1).join('/')
+			imagePath = upload.path.split('/').slice(1).join('/')  // cu phap gan image, file
 		}
 	}
 	// get value of req.body
 	var ID  = "5ed0800351510d27826764b4"
 	var title = req.body.title;
 	var content = req.body.content;
-	var newsId = shortid.generate();
+	var newsId = shortid.generate(); // function tạo id 
 	var hashtag = req.body.hashtag;
 	var theloai = req.body.theloai;
 	var trangthai = req.body.trangthai;
@@ -94,7 +94,7 @@ module.exports.postNews = async function(req, res) {
 		firstNews = "false"
 	}
 	
-	var news = await Theloai.findOne({ _id: ID });
+	var news = await Theloai.findOne({ _id: ID });  
 	var tableTinmoi = await Tinmoi.find();
 	//double linked list
 
@@ -120,6 +120,7 @@ module.exports.postNews = async function(req, res) {
 		this.head = null;
 		this.tail = null;
 		this.size = 0;
+
 	}
 
 	DoublyLinkedList.prototype.isEmpty = function() {
@@ -251,7 +252,7 @@ module.exports.postNews = async function(req, res) {
 
 					news.kinhte.push({
 						id: this.head.id,
-						title: this.head.title,
+						title: this.head.title,  // pHead -> title
 						content: this.head.content,
 						hashtag: this.head.hashtag,
 						image: this.head.image,
@@ -341,9 +342,11 @@ module.exports.postNews = async function(req, res) {
 	//kiể tra file nếu là ảnh thì video=null và ngược lai
 	var listTheloai = new DoublyLinkedList()
 	var listTinmoi = new DoublyLinkedList()
+
 	if (imagePath) {
 		// them vao table Theloai
 		listTheloai.addLastTheloai(title, content, newsId, hashtag, imagePath, null, theloai, firstNews, trangthai, time, date, "", source)
+
 		// them vao table Tinmoi
 		// nếu không có dữ liệu trong db thì tạo mới
 		if (!tableTinmoi[0]) {
@@ -386,7 +389,7 @@ module.exports.postNews = async function(req, res) {
 				)
 			}
 			// delete all document when copied 
-			await Tinmoi.deleteMany({});
+			await Tinmoi.deleteMany({});  // cu phap drop collection
 			// lưu vào dslk xong thì thêm vào đầu dslk đôi,
 			listTinmoi.addFirst(
 				title, 
@@ -405,7 +408,7 @@ module.exports.postNews = async function(req, res) {
 			)
 
 			// llưu từ dslk về lại tableTinmoi
-			for (var node = listTinmoi.head; node != null; node = node.next) {
+			for (var node = listTinmoi.head; node != null; node = node.next) {   // cú pháp lặp qua dslk
 					var object = {
 						id: node.id,
 						title: node.title,

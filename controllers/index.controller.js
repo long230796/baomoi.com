@@ -435,7 +435,7 @@ module.exports.updateNews = async function (req, res) {
 						tableTheloai[theloaihientai][i].source = node.source
 						
 						tableTheloai[theloaihientai][i].chinhsua.push(node.chinhsua)
-						tableTheloai.markModified(theloaihientai)
+						tableTheloai.markModified(theloaihientai)  // xác định đúng thể loại can luu
 						tableTheloai.save()
 
 					}
@@ -495,14 +495,17 @@ module.exports.deleteNews = async function (req, res) {
 	var theloai = req.body.theloai
 	var idNews = req.params.id;
 	var objId = req.body.objId;
+	// lấy được id thì tìm
 	var tableTinmoi = await Tinmoi.findOne({_id: objId})
 	var tableTheloai = await Theloai.findOne({_id: idTheloai})
 	// xóa trong tin mới
 	await tableTinmoi.deleteOne()
+
+
 	// xóa trong thể loại
 	for (var i = 0; i < tableTheloai[theloai].length; i ++) {
 		if (tableTheloai[theloai][i].id === idNews) {
-			tableTheloai[theloai].splice(i, 1)
+			tableTheloai[theloai].splice(i, 1)  // remove 1 phan tử từ vị trí thứ i
 			tableTheloai.save()
 			break;
 		}
