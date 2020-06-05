@@ -1,5 +1,7 @@
 var Tinmoi = require('../models/tinmoi.model.js')
 var Theloai = require('../models/theloai.model.js')
+var Session = require('../models/session.model.js')
+
 
 module.exports.getIndex = async function (req, res) {
 	var tinmoi = await Tinmoi.find();

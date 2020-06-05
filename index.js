@@ -10,6 +10,7 @@ var thethaoRoute = require('./routes/thethao.route.js')
 var vanhoaRoute = require('./routes/vanhoa.route.js')
 var xahoiRoute = require('./routes/xahoi.route.js')
 var timkiemRoute = require('./routes/timkiem.route.js')
+var thongkeRoute = require('./routes/thongke.route.js')
 var sessionMiddleware = require('./middleware/session.middleware.js')
 
 var mongoose = require('mongoose')
@@ -42,6 +43,7 @@ app.use('/thethao', thethaoRoute)
 app.use('/giaitri', giaitriRoute)
 app.use('/phapluat', phapluatRoute)
 app.use('/timkiem', timkiemRoute)
+app.use('/thongke', thongkeRoute)
 
 app.use('/', function (req, res) {
 	res.redirect('/trangchu')

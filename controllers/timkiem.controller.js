@@ -2,6 +2,7 @@ var Tinmoi = require('../models/tinmoi.model.js')
 var Theloai = require('../models/theloai.model.js')
 var Session = require('../models/session.model.js')
 var shortid = require('shortid')
+var Session = require('../models/session.model.js')
 
 
 module.exports.getSearch = async function (req, res) {

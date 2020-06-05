@@ -3,7 +3,14 @@ head
   meta(charset='UTF-8')
   meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
   meta(http-equiv='x-ua-compatible', content='ie=edge')
-  title Material Design for Bootstrap
+  // nav-bar 
+  link(rel="stylesheet" href="css/baomoii.css")
+  link(rel="stylesheet" href="css/all.css")
+  link(rel="stylesheet" href="css/component-right.css")
+  link(rel="stylesheet" href="css/hot-component.css")
+  link(rel="stylesheet" href="css/tin-tong-hop.css")
+  link(rel="stylesheet" href="css/tin-the-gioi.css")
+  link(rel="stylesheet" href="css/input-file-news.css")
   // MDB icon
   link(rel='icon', href='MDB-free/img/mdb-favicon.ico', type='image/x-icon')
   // Font Awesome
@@ -16,5 +23,42 @@ head
   link(rel='stylesheet', href='MDB-free/css/mdb.min.css')
   // Your custom styles (optional)
   link(rel='stylesheet', href='MDB-free/css/style.css')
-body
+body(style="background-color: #6D4C45")
+  .container-fluid(style='background-color: white; padding: 0;')
+    <div class="top">
+      <div class="logo"><a href="/trangchu"><img height="40px" src="image/logo/logo.png" alt=""></a></div>
+      <form class="form-inline active-cyan-3 active-cyan-4">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+          button.btn.btn-outline-info.waves-effect(type='button') Info
+      </form> 
+      <div class="right-top d-flex" style="align-items: center; justify-content: space-around">
+          <div style="margin-right: 10px">
+            <a href="http://localhost:3000/admin" class="badge badge-info">Admin</a>
+          </div>
+
+          <div style="margin-right: 10px">
+            <a href="http://localhost:3000/trangchu" class="badge badge-info">Trangchu</a>
+          </div>
+
+          <div style="margin-right: 10px">
+            <div class="fa fa-user pad"></div>
+            <div class="fa fa-bell pad"></div>
+            <div class="fa fa-mobile pad"></div>
+          </div>
+      </div>
+    </div>
+    <div class="menu" style="margin-top: 15px;">
+      <ul style="background-color: #2fa1b3; margin-bottom: 0">
+        <li><a href="/trangchu"><i class="fas fa-home fa-2x" ></i></a></li>
+        <li><a href="/xahoi">XÃ HỘI</a></li>
+        <li><a href="/thegioi">THẾ GIỚI</a></li>
+        <li><a href="/vanhoa">VĂN HÓA</a></li>
+        <li><a href="/kinhte">KINH TẾ</a></li>
+        <li><a href="/giaoduc">GIÁO DỤC</a></li>
+        <li><a href="/thethao">THỂ THAO</a></li>
+        <li><a href="/giaitri">GIẢI TRÍ</a></li>
+        <li><a href="/phapluat">PHÁP LUẬT</a></li>
+        
+      </ul>
+    </div>
   block content

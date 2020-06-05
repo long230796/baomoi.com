@@ -26,5 +26,4 @@ router.get('/video/:id', controller.getNews)
 // router.post('/tin-tuc-hot/deleteComment/:id', controller.deleteComment)
 
 
-
 module.exports = router

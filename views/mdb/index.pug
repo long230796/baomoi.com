@@ -1,9 +1,310 @@
 extends ../layouts/mdb.pug
 block content
+	.container(class="d-flex",style="background-color: #fafafa")
+		.content(style="flex-grow:1; word-wrap: break-word; ")
+			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ LƯỢNG NGƯỜI TRUY CẬP VÀO WEBSITE
+					i.fas.fa-chart-area.ml-3
 
-	// Start your project here
-	canvas#lineChart
-	// End your project here
+
+			if (sessionMonth1[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartSessionMonth1
+				input.d-none#sessionMonth1(type=text, value=sessionMonth1)
+				hr
+					
+			if (sessionMonth2[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartSessionMonth2
+				input.d-none#sessionMonth2(type=text, value=sessionMonth2)
+				hr
+					
+			if (sessionMonth3[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartSessionMonth3
+				input.d-none#sessionMonth3(type=text, value=sessionMonth3)
+				hr
+					
+			if (sessionMonth4[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartSessionMonth4
+				input.d-none#sessionMonth4(type=text, value=sessionMonth4)
+				hr
+					
+			if (sessionMonth5[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartSessionMonth5
+				input.d-none#sessionMonth5(type=text, value=sessionMonth5)
+				hr
+					
+			if (sessionMonth6[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartSessionMonth6
+				input.d-none#sessionMonth6(type=text, value=sessionMonth6)
+				hr
+					
+			if (sessionMonth7[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartSessionMonth7
+				input.d-none#sessionMonth7(type=text, value=sessionMonth7)
+				hr
+					
+			if (sessionMonth8[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartSessionMonth8
+				input.d-none#sessionMonth8(type=text, value=sessionMonth8)
+				hr
+					
+			if (sessionMonth9[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartSessionMonth9
+				input.d-none#sessionMonth9(type=text, value=sessionMonth9)
+				hr
+					
+			if (sessionMonth10[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartSessionMonth10
+				input.d-none#sessionMonth10(type=text, value=sessionMonth10)
+				hr
+					
+			if (sessionMonth11[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartSessionMonth11
+				input.d-none#sessionMonth11(type=text, value=sessionMonth11)
+				hr
+					
+			if (sessionMonth12[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartSessionMonth12
+				input.d-none#sessionMonth12(type=text, value=sessionMonth12)
+				hr
+					
+
+
+
+
+
+
+
+
+
+
+
+			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ SỐ LƯỢNG BÀI VIẾT THEO THÁNG
+					i.fas.fa-chart-area.ml-3
+
+			if (newsMonth1[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartNewsMonth1
+				input.d-none#newsMonth1(type=text, value=newsMonth1)
+
+			if (newsMonth2[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartNewsMonth2
+				input.d-none#newsMonth2(type=text, value=newsMonth2)
+
+			if (newsMonth3[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartNewsMonth3
+				input.d-none#newsMonth3(type=text, value=newsMonth3)
+
+			if (newsMonth4[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartNewsMonth4
+				input.d-none#newsMonth4(type=text, value=newsMonth4)
+
+			if (newsMonth5[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartNewsMonth5
+				input.d-none#newsMonth5(type=text, value=newsMonth5)
+
+			if (newsMonth6[0]) 
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
+						i.fas.fa-fire-alt.ml-3
+				canvas#chartNewsMonth6
+				input.d-none#newsMonth6(type=text, value=newsMonth6)
+
+			if (newsMonth7[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartNewsMonth7
+				input.d-none#newsMonth7(type=text, value=newsMonth7)
+
+			if (newsMonth8[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartNewsMonth8
+				input.d-none#newsMonth8(type=text, value=newsMonth8)
+
+			if (newsMonth9[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartNewsMonth9
+				input.d-none#newsMonth9(type=text, value=newsMonth9)
+
+			if (newsMonth10[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartNewsMonth10
+				input.d-none#newsMonth10(type=text, value=newsMonth10)
+
+			if (newsMonth11[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartNewsMonth11
+				input.d-none#newsMonth11(type=text, value=newsMonth11)
+
+			if (newsMonth12[0])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartNewsMonth12
+				input.d-none#newsMonth12(type=text, value=newsMonth12)
+
+
+
+
+
+
+
+
+
+
+			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ THỂ LOẠI ĐƯỢC TRUY CẬP
+					i.fas.fa-chart-area.ml-3
+			if (theloaidaxem[1])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth1
+				input.d-none#theloaidaxemMonth1(type=text, value=theloaidaxem[1])
+				hr
+
+			if (theloaidaxem[2])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth2
+				input.d-none#theloaidaxemMonth2(type=text, value=theloaidaxem[2])
+				hr
+			if (theloaidaxem[3])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth3
+				input.d-none#theloaidaxemMonth3(type=text, value=theloaidaxem[3])
+				hr
+			if (theloaidaxem[4])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth4
+				input.d-none#theloaidaxemMonth4(type=text, value=theloaidaxem[4])
+				hr
+			if (theloaidaxem[5])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth5
+				input.d-none#theloaidaxemMonth5(type=text, value=theloaidaxem[5])
+				hr
+			if (theloaidaxem[6])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth6
+				input.d-none#theloaidaxemMonth6(type=text, value=theloaidaxem[6])
+				hr
+
+			if (theloaidaxem[7])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth7
+				input.d-none#theloaidaxemMonth7(type=text, value=theloaidaxem[7])
+				hr
+
+			if (theloaidaxem[8])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth8
+				input.d-none#theloaidaxemMonth8(type=text, value=theloaidaxem[8])
+				hr
+
+			if (theloaidaxem[9])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth9
+				input.d-none#theloaidaxemMonth9(type=text, value=theloaidaxem[9])
+				hr
+
+			if (theloaidaxem[10])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth10
+				input.d-none#theloaidaxemMonth10(type=text, value=theloaidaxem[10])
+				hr
+
+			if (theloaidaxem[11])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth11
+				input.d-none#theloaidaxemMonth11(type=text, value=theloaidaxem[11])
+				hr
+
+			if (theloaidaxem[12])
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
+						i.fas.fa-fire-alt.ml-3 
+				canvas#chartTheloaidaxemMonth12
+				input.d-none#theloaidaxemMonth12(type=text, value=theloaidaxem[12])
+				hr
 
 
 
@@ -19,3 +320,4 @@ block content
 	script(type='text/javascript', src='MDB-free/js/mdb.min.js')
 	// Your custom scripts (optional)
 	script(type='text/javascript', src='MDB-free/js/chart.js')
+

@@ -1,6 +1,9 @@
 var express = require('express');
 var multer = require('multer')
 var router = express.Router();
+var express = require('express');
+var multer = require('multer')
+var router = express.Router();
 var controller = require('../controllers/thongke.controller.js');
 
 

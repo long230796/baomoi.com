@@ -45,6 +45,8 @@ module.exports.getNews = async function (req, res) {
 	var tinlienquan = await Tinmoi.find({theloai: theloai})
 	var allNews = await Tinmoi.find({})
 	var session = await Session.findOne({sessionId: sessionId})
+	session.theloaidaxem.push(theloai)
+	session.save()
 	
 	res.render('news', {
 		news: news,

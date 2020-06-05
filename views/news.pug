@@ -3,6 +3,7 @@ block content
 	.container.d-flex(style="background-color: #fafafa")
 		.center.mr-4(style=" width: 70%")
 			if (news.video)
+
 				.title.d-flex.align-items-start
 					h1.mt-3(style="font-weight: bold; flex-grow: 1")= news.title
 					if (adminId)
@@ -188,6 +189,7 @@ block content
 						button.preview-btn.btn.btn-primary.mb-3.mr-2(type="button" onclick="nonDisplayForm()") Hủy	 
 
 			else
+				
 				.title.d-flex.align-items-start
 					h1.mt-3(style="font-weight: bold; flex-grow: 1")= news.title
 					if (adminId)
