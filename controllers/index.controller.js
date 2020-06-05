@@ -8,7 +8,7 @@ module.exports.getIndex = async function (req, res) {
 	var adminId = req.signedCookies.adminId
 	var tinmoi = await Tinmoi.find({});
 	var tinmoiTemp = await Tinmoi.find({});
-	var theloai = await Theloai.findOne({_id: "5ed0800351510d27826764b4"})
+	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
 
 	// find max length comment.
 	var maxComment = tinmoiTemp;   //vì thay đổi giá trị của maxComment củng thay đổi giá trị của giá trị gán với nó 
@@ -74,7 +74,7 @@ module.exports.postComment = async function (req, res) {
 	var session = await Session.findOne({sessionId: sessionId})
 
 	var theloaihientai = news.theloai;
-	var theloai = await Theloai.findOne({_id: "5ed0800351510d27826764b4"})
+	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
 	var lengthTheloai = theloai[theloaihientai].length;
 
 	// luu vao danh sach lien ket 
@@ -161,7 +161,7 @@ module.exports.postNewComment = async function (req, res) {
 	var news = await Tinmoi.findOne({id: idNews})
 
 	var theloaihientai = news.theloai;
-	var theloai = await Theloai.findOne({_id: "5ed0800351510d27826764b4"})
+	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
 	var lengthTheloai = theloai[theloaihientai].length;
 
 	function DoublyLinkedListNode(newComment, newRating) {
@@ -232,7 +232,7 @@ module.exports.deleteComment = async function (req, res) {
 	var news = await Tinmoi.findOne({id: idNews})
 
 	var theloaihientai = news.theloai;
-	var theloai = await Theloai.findOne({_id: "5ed0800351510d27826764b4"})
+	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
 	var lengthTheloai = theloai[theloaihientai].length;
 
 	function DoublyLinkedListNode(idNews, idCommenter) {
@@ -296,7 +296,7 @@ module.exports.deleteComment = async function (req, res) {
 
 module.exports.updateNews = async function (req, res) {
 	// lay du lieu tu front-end
-	var idTableTheloai  = "5ed0800351510d27826764b4"
+	var idTableTheloai  = "5ed51a3a31739358f02d0178"
 	var idNews = req.params.id
 	var title = req.body.title
 	var content = req.body.content
@@ -493,7 +493,7 @@ module.exports.updateNews = async function (req, res) {
 }
 
 module.exports.deleteNews = async function (req, res) {
-	var idTheloai = "5ed0800351510d27826764b4"
+	var idTheloai = "5ed51a3a31739358f02d0178"
 	var theloai = req.body.theloai
 	var idNews = req.params.id;
 	var objId = req.body.objId;
