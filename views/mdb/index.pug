@@ -1,7 +1,9 @@
 extends ../layouts/mdb.pug
 block content
 	.container(class="d-flex",style="background-color: #fafafa")
-		.content(style="flex-grow:1; word-wrap: break-word; ")
+		.content(style="width: 100%; word-wrap: break-word; ")
+			a.btn.btn-success(href='javascript:void(0);', onclick='generate();') Generate Screenshot &raquo;
+
 			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ LƯỢNG NGƯỜI TRUY CẬP VÀO WEBSITE
 					i.fas.fa-chart-area.ml-3
@@ -309,7 +311,7 @@ block content
 
 			// so luong comment trong 1 thang
 			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ SỐ LƯỢNG BÌNH LUẬN 
+				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ SỐ LƯỢNG BÌNH LUẬN VÀ CHỈNH SỬA
 					i.fas.fa-chart-area.ml-3
 			if (allComment[1])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -318,6 +320,7 @@ block content
 				canvas#chartAllcommentMonth1
 				input.d-none#allcommentMonth1(type=text, value=allComment[1])
 				hr
+				if (allChinhsua[1])
 
 			if (allComment[2])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -326,6 +329,7 @@ block content
 				canvas#chartAllcommentMonth2
 				input.d-none#allcommentMonth2(type=text, value=allComment[2])
 				hr
+				if (allChinhsua[2])
 			if (allComment[3])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
@@ -333,6 +337,7 @@ block content
 				canvas#chartAllcommentMonth3
 				input.d-none#allcommentMonth3(type=text, value=allComment[3])
 				hr
+				if (allChinhsua[3])
 			if (allComment[4])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
@@ -340,6 +345,7 @@ block content
 				canvas#chartAllcommentMonth4
 				input.d-none#allcommentMonth4(type=text, value=allComment[4])
 				hr
+				if (allChinhsua[4])
 			if (allComment[5])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
@@ -347,13 +353,46 @@ block content
 				canvas#chartAllcommentMonth5
 				input.d-none#allcommentMonth5(type=text, value=allComment[5])
 				hr
+				if (allChinhsua[6])
+
 			if (allComment[6])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
 						i.fas.fa-fire-alt.ml-3 
+
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h5.mt-4.pl-3.ml-3 +) Biểu Đồ Tổng Quát
 				canvas#chartAllcommentMonth6
 				input.d-none#allcommentMonth6(type=text, value=allComment)
-				hr
+
+				if (allChinhsua[6])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3 +) Thông tin đã chỉnh sửa
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Người chỉnh sửa
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each chinhsua in allChinhsua[6]
+								tr
+									th(scope='row')= allChinhsua[6].indexOf(chinhsua)
+									td= chinhsua.thoigianchinhsua.slice(0, 15)
+									td= chinhsua.thoigianchinhsua.slice(15, 29)
+									td= chinhsua.thoigianchinhsua.slice(44)
+									td
+										button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+										.dropdown-menu
+											a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+											//- a.dropdown-item(href='#') Another action
+											//- a.dropdown-item(href='#') Something else here
+											//- .dropdown-divider
+											//- a.dropdown-item(href='#') Separated link
+									
+
 
 			if (allComment[7])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -362,6 +401,7 @@ block content
 				canvas#chartAllcommentMonth7
 				input.d-none#allcommentMonth7(type=text, value=allComment)
 				hr
+				if (allChinhsua[7])
 
 			if (allComment[8])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -370,6 +410,7 @@ block content
 				canvas#chartAllcommentMonth8
 				input.d-none#allcommentMonth8(type=text, value=allComment[8])
 				hr
+				if (allChinhsua[8])
 
 			if (allComment[9])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -378,6 +419,7 @@ block content
 				canvas#chartAllcommentMonth9
 				input.d-none#allcommentMonth9(type=text, value=allComment[9])
 				hr
+				if (allChinhsua[9])
 
 			if (allComment[10])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -386,6 +428,8 @@ block content
 				canvas#chartAllcommentMonth10
 				input.d-none#allcommentMonth10(type=text, value=alComment[10])
 				hr
+				if (allChinhsua[10])
+
 
 			if (allComment[11])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -394,6 +438,7 @@ block content
 				canvas#chartAllcommentMonth11
 				input.d-none#allcommentMonth11(type=text, value=alComment[11])
 				hr
+				if (allChinhsua[11])
 
 			if (allComment[12])
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -402,6 +447,10 @@ block content
 				canvas#chartAllcommentMonth12
 				input.d-none#allcommentMonth12(type=text, value=alComment[12])
 				hr
+				if (allChinhsua[12])
+
+			
+
 
 
 
@@ -420,4 +469,7 @@ block content
 	script(type='text/javascript', src='MDB-free/js/mdb.min.js')
 	// Your custom scripts (optional)
 	script(type='text/javascript', src='MDB-free/js/chart.js')
+
+	script(type='text/javascript', src='html2canvas-master/dist/html2canvas.js')
+
 

@@ -1,6 +1,7 @@
 var Tinmoi = require('../models/tinmoi.model.js')
 var Theloai = require('../models/theloai.model.js')
 var Session = require('../models/session.model.js')
+var Admin = require('../models/admin.model.js')
 var shortid = require('shortid')
 
 module.exports.getIndex = async function (req, res) {
@@ -309,6 +310,9 @@ module.exports.updateNews = async function (req, res) {
 	var ngaythanghientai = req.body.ngaythanghientai
 	var commenthientai = JSON.parse(req.body.commenthientai)
 	var chinhsuahientai = JSON.parse(req.body.chinhsuahientai)
+	var adminId = req.signedCookies.adminId
+	var adminObject = await Admin.findOne({_id: adminId})
+	var nguoichinhsua = adminObject.name
 	// kiểm tra firstNews có được tích ko
 	var firstNews = req.body.firstNews
 	if (req.body.firstNews == "on") {
@@ -342,8 +346,8 @@ module.exports.updateNews = async function (req, res) {
 		this.video = videoPath;
 		this.theloai = theloai;
 		this.firstNews = firstNews;
-		this.trangthai = trangthai;
-		this.chinhsua = "ngày: " + ngaythang + " vào lúc: " + thoigian
+		this.trangthai = trangthai; 
+		this.chinhsua = "ngày: " + ngaythang + " vào lúc: " + thoigian + " nguoichinhsua: " + nguoichinhsua
 		this.source = source;
 		this.next = null;
 		this.prev = null;

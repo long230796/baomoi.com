@@ -216,19 +216,29 @@ function chart(counts, canvasId) {
 
 	if (canvasId.indexOf("Allcomment") !== -1) {
 		var labels = []
-		var data = []
+		var data1 = []
+		var data2 = [];
 		countComment = {}
 		for (count in counts) {
 			// dem cac ptu trung nhau cua mang
-			for (arr of counts[count]) {
-				countComment[arr.date] = (countComment[arr.date] || 0) + 1
+			if (count !== "ngaychinhsua") {
+				for (arr of counts[count]) {
+					countComment[arr.date] = (countComment[arr.date] || 0) + 1
+				}
+
+			} else {
+				for (key in counts[count]) {
+					if (key !== "time") {
+						data2.unshift(counts[count][key])
+					}
+				}
 			}
 		}
 		for (key in countComment) {
 			labels.push(key)
-			data.push(countComment[key])
+			data1.push(countComment[key])
 		}
-		console.log(labels, data)
+		console.log(data2)
 		
 
 		var ctxL = document.getElementById(canvasId).getContext('2d');
@@ -238,7 +248,7 @@ function chart(counts, canvasId) {
 		        labels: labels,
 		        datasets: [{
 		                label: "Lược bình luận theo ngày",
-		                data: data,
+		                data: data1,
 		                backgroundColor: [
 		                    'rgba(105, 0, 132, .2)',
 		                ],
@@ -246,18 +256,18 @@ function chart(counts, canvasId) {
 		                    'rgba(200, 99, 132, .7)',
 		                ],
 		                borderWidth: 2
+		            },
+		            {
+		                label: "Số lần chỉnh sửa bài viết",
+		                data: data2,
+		                backgroundColor: [
+		                    'rgba(0, 137, 132, .2)',
+		                ],
+		                borderColor: [
+		                    'rgba(0, 10, 130, .7)',
+		                ],
+		                borderWidth: 2
 		            }
-		            // {
-		            //     label: "My Second dataset",
-		            //     data: [28, 48, 40, 19, 86, 27, 90],
-		            //     backgroundColor: [
-		            //         'rgba(0, 137, 132, .2)',
-		            //     ],
-		            //     borderColor: [
-		            //         'rgba(0, 10, 130, .7)',
-		            //     ],
-		            //     borderWidth: 2
-		            // }
 		        ]
 		    },
 		    options: {

@@ -5,9 +5,10 @@ module.exports.getStatistic = async function (req, res) {
 	var sessionTable = await Session.find()
 	var tinmoiTable = await Tinmoi.find()
 
-	function DoublyLinkedListNode(sessionId, date, time , theloaidaxem) {
+	function DoublyLinkedListNode(sessionId, date, time , theloaidaxem, theloai) {
 		this.sessionId = sessionId
 		this.theloaidaxem = theloaidaxem
+		this.theloai = theloai
 		this.date = date
 		this.time = time
 		this.next = null;
@@ -25,12 +26,12 @@ module.exports.getStatistic = async function (req, res) {
 	// 	return this.size == 0;
 	// }
 
-	DoublyLinkedList.prototype.addFirst = function (sessionId, date, time, theloaidaxem ) {
+	DoublyLinkedList.prototype.addFirst = function (sessionId, date, time, theloaidaxem, theloai ) {
 		if (this.head === null) {
-			this.head = new DoublyLinkedListNode(sessionId, date, time, theloaidaxem );
+			this.head = new DoublyLinkedListNode(sessionId, date, time, theloaidaxem, theloai );
 			this.tail = this.head;
 		} else {
-			var temp = new DoublyLinkedListNode(sessionId, date, time, theloaidaxem );
+			var temp = new DoublyLinkedListNode(sessionId, date, time, theloaidaxem, theloai );
 			temp.next = this.head;
 			this.head.prev = temp;
 			this.head = temp;
@@ -38,12 +39,12 @@ module.exports.getStatistic = async function (req, res) {
 		this.size++;
 	}
 
-	DoublyLinkedList.prototype.addLast = function (sessionId, date, time, theloaidaxem ) {
+	DoublyLinkedList.prototype.addLast = function (sessionId, date, time, theloaidaxem, theloai ) {
 		if (this.tail === null) {
-			this.tail = new DoublyLinkedListNode(sessionId, date, time, theloaidaxem );
+			this.tail = new DoublyLinkedListNode(sessionId, date, time, theloaidaxem, theloai );
 			this.head = this.tail;
 		} else {
-			var temp = new DoublyLinkedListNode(sessionId, date, time, theloaidaxem );
+			var temp = new DoublyLinkedListNode(sessionId, date, time, theloaidaxem, theloai );
 			this.tail.next = temp;
 			temp.prev = this.tail;
 			this.tail = temp;
@@ -53,6 +54,7 @@ module.exports.getStatistic = async function (req, res) {
 	// tạo ra một danh sách liên kết
 	var sessionList = new DoublyLinkedList();
 	var tinmoiList = new DoublyLinkedList();
+	var chinhsuaList = new DoublyLinkedList()
 
 	// lặp qua sessionTable và lưu vào dslk
 	for (data of sessionTable) {
@@ -62,7 +64,9 @@ module.exports.getStatistic = async function (req, res) {
 	// lặp qua tinmoi và lưu vào dslk
 	for (data of tinmoiTable) {
 		tinmoiList.addFirst(data.id, data.ngaythang, data.thoigian, data.comment)
+		chinhsuaList.addFirst(data.id, data.ngaythang, data.thoigian, data.chinhsua, data.theloai)
 	}
+
 
 	// đếm số tháng trùng nhau của sessionTable
 	var countSession = {};
@@ -77,6 +81,22 @@ module.exports.getStatistic = async function (req, res) {
 	var  countTinmoi= {};
 	for (var node = tinmoiList.head; node != null; node = node.next) {
 		countTinmoi[node.date] = (countTinmoi[node.date] || 0) + 1
+	}
+
+	var  countChinhsua= {};
+	for (var node = chinhsuaList.head; node != null; node = node.next) {
+		for (element of node.theloaidaxem) {
+			if (element) {
+				var time = element.split(" ")[1]
+				var month = element.split(" ")[1].split("/")[1]
+				if (!countChinhsua[month]) {
+					countChinhsua[month] = {time} 
+					countChinhsua[month][time] = (countChinhsua[month][time] || 0) + 1	
+				} else {
+					countChinhsua[month][time] = (countChinhsua[month][time] || 0) + 1	
+				}
+			}
+		}
 	}
 
 	// // lấy tất thể loại đã xem
@@ -101,7 +121,7 @@ module.exports.getStatistic = async function (req, res) {
 		}
 	}
 
-
+	// lấy tất cả comment theo tháng
 	var allComment = {}
 	getAllComment(allComment)
 
@@ -114,6 +134,11 @@ module.exports.getStatistic = async function (req, res) {
 						// nếu không tồn tại thì tạo mới
 						if (!obj[month]) {
 							obj[month] = [data] 
+							for (key in countChinhsua) {
+								if (key == month) {
+									obj.ngaychinhsua = countChinhsua[key]				
+								}
+							}
 						} else {
 							obj[month].push(data)
 						}
@@ -122,6 +147,38 @@ module.exports.getStatistic = async function (req, res) {
 			}
 		}
 	}
+
+	// lấy tất cả tin đã chỉnh sửa 
+
+	var allChinhsua = {}
+	getAllChinhsua(allChinhsua)
+
+	function getAllChinhsua(obj) {
+		for (var i = 1; i < 13; i ++) {
+			for (var node = chinhsuaList.head; node != null; node = node.next) {
+				var month = JSON.parse(node.date.split("/")[1])
+				if (month == i) {
+					for (data of node.theloaidaxem) {
+						// nếu không tồn tại thì tạo mới
+						if (!obj[month]) {
+							obj[month] = [{
+								thoigianchinhsua: data,
+								id: node.sessionId,
+								theloai: node.theloai
+							}] 
+						} else {
+							obj[month].push({
+								thoigianchinhsua: data,
+								id: node.sessionId,
+								theloai: node.theloai
+							})
+						}
+					}
+				}
+			}
+		}
+	}
+ 
 
 
 	
@@ -238,6 +295,8 @@ module.exports.getStatistic = async function (req, res) {
 
 		theloaidaxem: theloaidaxem,
 
-		allComment: allComment
+		allComment: allComment,
+
+		allChinhsua: allChinhsua
 	})
 }
