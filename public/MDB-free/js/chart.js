@@ -11,9 +11,13 @@ for (var i = 1; i < 13; i ++) {
 	var idValueTheloaidaxem = "theloaidaxemMonth"+JSON.stringify(i)
 	var idChartTheloaidaxem = "chartTheloaidaxemMonth"+JSON.stringify(i)
 
+	var idValueAllcomment = "allcommentMonth"+JSON.stringify(i)
+	var idChartAllComment = "chartAllcommentMonth"+JSON.stringify(i)
+
 	tryCatch(idValueSession, idChartSession)
 	tryCatch(idValueNews, idChartNews)
 	tryCatch(idValueTheloaidaxem, idChartTheloaidaxem)
+	tryCatch(idValueAllcomment, idChartAllComment)
 }
 // nếu id = undefine thì vẫn chạy
 // nếu có thì lấy giá trị, đưa vào biểu đồ
@@ -62,6 +66,13 @@ function chart(counts, canvasId) {
 			},
 			options: {
 				responsive: true,
+				legend: {
+			      labels: {
+			        padding: 20,
+			        boxWidth: 40,
+			        fontSize: 20
+			      }
+			    },
 				
 			}
 		});
@@ -117,7 +128,14 @@ function chart(counts, canvasId) {
 							beginAtZero: true
 						}
 					}]
-				}
+				},
+				legend: {
+			      labels: {
+			        padding: 20,
+			        boxWidth: 40,
+			        fontSize: 20
+			      }
+			    },
 				
 			}
 
@@ -192,6 +210,67 @@ function chart(counts, canvasId) {
 		      }
 		    }
 		  }
+		});
+	}
+
+
+	if (canvasId.indexOf("Allcomment") !== -1) {
+		var labels = []
+		var data = []
+		countComment = {}
+		for (count in counts) {
+			// dem cac ptu trung nhau cua mang
+			for (arr of counts[count]) {
+				countComment[arr.date] = (countComment[arr.date] || 0) + 1
+			}
+		}
+		for (key in countComment) {
+			labels.push(key)
+			data.push(countComment[key])
+		}
+		console.log(labels, data)
+		
+
+		var ctxL = document.getElementById(canvasId).getContext('2d');
+		var myLineChart = new Chart(ctxL, {
+		    type: 'line',
+		    data: {
+		        labels: labels,
+		        datasets: [{
+		                label: "Lược bình luận theo ngày",
+		                data: data,
+		                backgroundColor: [
+		                    'rgba(105, 0, 132, .2)',
+		                ],
+		                borderColor: [
+		                    'rgba(200, 99, 132, .7)',
+		                ],
+		                borderWidth: 2
+		            }
+		            // {
+		            //     label: "My Second dataset",
+		            //     data: [28, 48, 40, 19, 86, 27, 90],
+		            //     backgroundColor: [
+		            //         'rgba(0, 137, 132, .2)',
+		            //     ],
+		            //     borderColor: [
+		            //         'rgba(0, 10, 130, .7)',
+		            //     ],
+		            //     borderWidth: 2
+		            // }
+		        ]
+		    },
+		    options: {
+		        responsive: true,
+		        legend: {
+			      labels: {
+			        padding: 20,
+			        boxWidth: 40,
+			        fontSize: 20
+			      }
+			    },
+		    }
+
 		});
 	}
 }

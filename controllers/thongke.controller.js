@@ -102,8 +102,30 @@ module.exports.getStatistic = async function (req, res) {
 	}
 
 
+	var allComment = {}
+	getAllComment(allComment)
+
+	function getAllComment(obj) {
+		for (var i = 1; i < 13; i ++) {
+			for (var node = tinmoiList.head; node != null; node = node.next) {
+				var month = JSON.parse(node.date.split("/")[1])
+				if (month == i) {
+					for (data of node.theloaidaxem) {
+						// nếu không tồn tại thì tạo mới
+						if (!obj[month]) {
+							obj[month] = [data] 
+						} else {
+							obj[month].push(data)
+						}
+					}
+				}
+			}
+		}
+	}
+
+
 	
-	
+
 	
 
 	var sessionMonth1 = [] ;
@@ -186,7 +208,7 @@ module.exports.getStatistic = async function (req, res) {
 
 	}
 
-	console.log(tinmoiList)
+	console.log(allComment)
 	res.render("mdb/index.pug", {
 		sessionMonth1: sessionMonth1,
 		sessionMonth2: sessionMonth2,
@@ -214,6 +236,8 @@ module.exports.getStatistic = async function (req, res) {
 		newsMonth11: newsMonth11,
 		newsMonth12: newsMonth12,
 
-		theloaidaxem: theloaidaxem
+		theloaidaxem: theloaidaxem,
+
+		allComment: allComment
 	})
 }
