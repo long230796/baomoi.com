@@ -230,15 +230,29 @@ function chart(counts, canvasId) {
 				for (key in counts[count]) {
 					if (key !== "time") {
 						data2.unshift(counts[count][key])
+						// đẩy ngày chỉnh sửa vào labels
+						labels.push(key)
 					}
 				}
 			}
 		}
+		// đẩy ngày comment vào labels
 		for (key in countComment) {
 			labels.push(key)
 			data1.push(countComment[key])
 		}
-		console.log(data2)
+
+		// loai ptu trung nhau cua labels
+		labels = labels.filter(function (item, index) {
+		    return labels.indexOf(item) === index;
+		});
+		// sap xep ngay theo thu tu tang dan
+		labels.sort(function (a, b) {
+			var date1 = a.split("/")[0]
+			var date2 = b.split("/")[0]
+			return date1 - date2
+		})
+		console.log(labels)
 		
 
 		var ctxL = document.getElementById(canvasId).getContext('2d');

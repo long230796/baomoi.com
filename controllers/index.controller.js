@@ -491,7 +491,94 @@ module.exports.updateNews = async function (req, res) {
 	}
 
 	if (videoPath) {
+		// luu vao danh sach lien ket Theloai va dslk Tinmoi
+		listTheloai.addLast(title, content, hashtag, null, videoPath, theloai, firstNews, trangthai, time, date, source );
+		listTinmoi.addLast(title, content, hashtag, null, videoPath, theloai, firstNews, trangthai, time, date, source );
 
+		// tim kiem trong data base
+		var tableTheloai = await Theloai.findOne({ _id: idTableTheloai });
+		var tableTinmoi = await Tinmoi.findOne({id: idNews});
+
+		// cập nhật vào database tin moi
+		for (var node = listTinmoi.head; node != null; node = node.next) {
+			await tableTinmoi.updateOne({
+				title: node.title,
+				content: node.content,
+				hashtag: node.hashtag,
+				image: node.image,
+				video: node.video,
+				theloai: node.theloai,
+				firstNews: node.firstNews,
+				trangthai: node.trangthai,
+				source: node.source
+			})
+			tableTinmoi.chinhsua.push(node.chinhsua)
+			tableTinmoi.save()
+
+			// cập nhật vào tableTheloai 
+			// llặp qua thể loại hiện tại
+			for (var i = 0; i < tableTheloai[theloaihientai].length; i ++) {
+				// nếu thể loại hiện tại không thay đổi thì cập nhật 
+				if (theloaihientai === theloai) {
+					if (tableTheloai[theloaihientai][i].id === idNews) {
+						tableTheloai[theloaihientai][i].title = node.title
+						tableTheloai[theloaihientai][i].content = node.content
+						tableTheloai[theloaihientai][i].hashtag = node.hashtag
+						tableTheloai[theloaihientai][i].image = node.image
+						tableTheloai[theloaihientai][i].video = node.video
+						tableTheloai[theloaihientai][i].theloai = node.theloai
+						tableTheloai[theloaihientai][i].firstNews = node.firstNews
+						tableTheloai[theloaihientai][i].trangthai = node.trangthai
+						tableTheloai[theloaihientai][i].source = node.source
+						
+						tableTheloai[theloaihientai][i].chinhsua.push(node.chinhsua)
+						tableTheloai.markModified(theloaihientai)  // xác định đúng thể loại can luu
+						tableTheloai.save()
+
+					}
+				// nếu thay đổi thì tạo thông tin mới bên thể loại mới và xóa thông tin cũ
+				} else {
+					tableTheloai[theloai].push({
+						id: idNews,
+						title: node.title,
+						content: node.content,
+						hashtag: node.hashtag,
+						image: node.image,
+						video: node.video,
+						theloai: node.theloai,
+						firstNews: node.firstNews,
+						trangthai: node.trangthai,
+						thoigian: thoigianhientai,
+						ngaythang: ngaythanghientai,
+						source: node.source,
+						comment: commenthientai,
+						chinhsua: chinhsuahientai
+					})
+					tableTheloai.markModified(theloai)
+					var lastIndexOfTheLoai = tableTheloai[theloai].length - 1;
+					// tạo thông tin mới
+					tableTheloai[theloai][lastIndexOfTheLoai].chinhsua.push(node.chinhsua)
+					// xóa thông tin cũ (bỏ đi 1 phần tử từ vị trí i)
+					for (var i = 0; i < tableTheloai[theloaihientai].length; i ++) {
+						if (tableTheloai[theloaihientai][i].id === idNews) {
+							tableTheloai[theloaihientai].splice(i, 1) 
+							tableTheloai.save();
+							break; 
+						}
+					}
+						
+					break;
+
+				}
+			}
+			
+		}
+
+
+
+
+
+		res.redirect('/'+theloai+'/news/'+idNews)
 	}
 
 }

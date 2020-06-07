@@ -24,12 +24,12 @@ head
   // Your custom styles (optional)
   link(rel='stylesheet', href='MDB-free/css/style.css')
 body(style="background-color: #6D4C45")
-  .container-fluid(style='background-color: white; padding: 0;')
+  .container-fluid(style='background-color: white; padding: 0; ')
     <div class="top">
       <div class="logo"><a href="/trangchu"><img height="40px" src="image/logo/logo.png" alt=""></a></div>
-      <form class="form-inline active-cyan-3 active-cyan-4">
+      <form class="active-cyan-3 active-cyan-4 d-flex">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-          button.btn.btn-outline-info.waves-effect(type='button') Info
+          button.btn.btn-outline-info.waves-effect.m-0.d-flex(type='button' style="padding: 0px 11px") Tìm kiếm
       </form> 
       <div class="right-top d-flex" style="align-items: center; justify-content: space-around">
           <div style="margin-right: 10px">
@@ -45,8 +45,12 @@ body(style="background-color: #6D4C45")
             <div class="fa fa-bell pad"></div>
             <div class="fa fa-mobile pad"></div>
           </div>
+      button.btn.btn-outline-default.waves-effect(type='button' id='but_screenshot' value='Take screenshot' onclick='screenshot()')
+        | Print to file
+        i.fas.fa-print.ml-3          
       </div>
     </div>
+
     <div class="menu" style="margin-top: 15px;">
       <ul style="background-color: #2fa1b3; margin-bottom: 0">
         <li><a href="/trangchu"><i class="fas fa-home fa-2x" ></i></a></li>

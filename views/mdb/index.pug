@@ -1,453 +1,473 @@
 extends ../layouts/mdb.pug
 block content
-	.container(class="d-flex",style="background-color: #fafafa")
-		.content(style="width: 100%; word-wrap: break-word; ")
-			a.btn.btn-success(href='javascript:void(0);', onclick='generate();') Generate Screenshot &raquo;
+	.wrapper.d-flex
+		.left.mr-4(style="width: 8%")
+			.action.sticky-top
+				button.btn.btn-success.dropdown-toggle.mr-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false' style="height: 100px") THỐNG KÊ
+				.dropdown-menu
+					a.dropdown-item(href='#luongnguoitruycap' style="color: back") Lượng người truy cập mỗi tháng 
+					a.dropdown-item(href='#soluongbaiviet') Số lượng bài viết mỗi tháng
+					a.dropdown-item(href='#theloaitruycap') Thể loại được truy cập
+					a.dropdown-item(href='#binhluanvachinhsua') Lược bình luận và chỉnh sửa
+					.dropdown-divider
+					button.btn.btn-outline-default.waves-effect(type='button' id='but_screenshot' value='Take screenshot' onclick='screenshot()')
+						| Print to file
+						i.fas.fa-print.ml-3 
+		.center#container(style="background-color: #fafafa; width: 83%; padding: 0 20px")
 
-			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ LƯỢNG NGƯỜI TRUY CẬP VÀO WEBSITE
-					i.fas.fa-chart-area.ml-3
+			.content#content(style="width: 100%; word-wrap: break-word; ")
 
-
-			if (sessionMonth1[0]) 
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartSessionMonth1
-				input.d-none#sessionMonth1(type=text, value=sessionMonth1)
-				hr
+					h3.mt-4.pl-3#luongnguoitruycap(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ LƯỢNG NGƯỜI TRUY CẬP VÀO WEBSITE
+						i.fas.fa-chart-area.ml-3
 
-			if (sessionMonth2[0]) 
+
+				if (sessionMonth1[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartSessionMonth1
+					input.d-none#sessionMonth1(type=text, value=sessionMonth1)
+					hr
+
+				if (sessionMonth2[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartSessionMonth2
+					input.d-none#sessionMonth2(type=text, value=sessionMonth2)
+					hr
+
+				if (sessionMonth3[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartSessionMonth3
+					input.d-none#sessionMonth3(type=text, value=sessionMonth3)
+					hr
+
+				if (sessionMonth4[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartSessionMonth4
+					input.d-none#sessionMonth4(type=text, value=sessionMonth4)
+					hr
+
+				if (sessionMonth5[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartSessionMonth5
+					input.d-none#sessionMonth5(type=text, value=sessionMonth5)
+					hr
+
+				if (sessionMonth6[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartSessionMonth6
+					input.d-none#sessionMonth6(type=text, value=sessionMonth6)
+					hr
+
+				if (sessionMonth7[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartSessionMonth7
+					input.d-none#sessionMonth7(type=text, value=sessionMonth7)
+					hr
+
+				if (sessionMonth8[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartSessionMonth8
+					input.d-none#sessionMonth8(type=text, value=sessionMonth8)
+					hr
+
+				if (sessionMonth9[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartSessionMonth9
+					input.d-none#sessionMonth9(type=text, value=sessionMonth9)
+					hr
+
+				if (sessionMonth10[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartSessionMonth10
+					input.d-none#sessionMonth10(type=text, value=sessionMonth10)
+					hr
+
+				if (sessionMonth11[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartSessionMonth11
+					input.d-none#sessionMonth11(type=text, value=sessionMonth11)
+					hr
+
+				if (sessionMonth12[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartSessionMonth12
+					input.d-none#sessionMonth12(type=text, value=sessionMonth12)
+					hr
+
+
+
+
+
+
+
+
+
+
+
+				// so luong bai viet trong thang
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartSessionMonth2
-				input.d-none#sessionMonth2(type=text, value=sessionMonth2)
-				hr
+					h3.mt-4.pl-3#soluongbaiviet(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ SỐ LƯỢNG BÀI VIẾT THEO THÁNG
+						i.fas.fa-chart-area.ml-3
 
-			if (sessionMonth3[0]) 
+				if (newsMonth1[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartNewsMonth1
+					input.d-none#newsMonth1(type=text, value=newsMonth1)
+
+				if (newsMonth2[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartNewsMonth2
+					input.d-none#newsMonth2(type=text, value=newsMonth2)
+
+				if (newsMonth3[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartNewsMonth3
+					input.d-none#newsMonth3(type=text, value=newsMonth3)
+
+				if (newsMonth4[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartNewsMonth4
+					input.d-none#newsMonth4(type=text, value=newsMonth4)
+
+				if (newsMonth5[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartNewsMonth5
+					input.d-none#newsMonth5(type=text, value=newsMonth5)
+
+				if (newsMonth6[0]) 
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
+							i.fas.fa-fire-alt.ml-3
+					canvas#chartNewsMonth6
+					input.d-none#newsMonth6(type=text, value=newsMonth6)
+
+				if (newsMonth7[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartNewsMonth7
+					input.d-none#newsMonth7(type=text, value=newsMonth7)
+
+				if (newsMonth8[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartNewsMonth8
+					input.d-none#newsMonth8(type=text, value=newsMonth8)
+
+				if (newsMonth9[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartNewsMonth9
+					input.d-none#newsMonth9(type=text, value=newsMonth9)
+
+				if (newsMonth10[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartNewsMonth10
+					input.d-none#newsMonth10(type=text, value=newsMonth10)
+
+				if (newsMonth11[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartNewsMonth11
+					input.d-none#newsMonth11(type=text, value=newsMonth11)
+
+				if (newsMonth12[0])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartNewsMonth12
+					input.d-none#newsMonth12(type=text, value=newsMonth12)
+
+
+
+
+
+
+
+
+
+				// the loai duoc truy cap trong thang
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartSessionMonth3
-				input.d-none#sessionMonth3(type=text, value=sessionMonth3)
-				hr
+					h3.mt-4.pl-3#theloaitruycap(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ THỂ LOẠI ĐƯỢC TRUY CẬP
+						i.fas.fa-chart-area.ml-3
+				if (theloaidaxem[1])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth1
+					input.d-none#theloaidaxemMonth1(type=text, value=theloaidaxem[1])
+					hr
 
-			if (sessionMonth4[0]) 
+				if (theloaidaxem[2])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth2
+					input.d-none#theloaidaxemMonth2(type=text, value=theloaidaxem[2])
+					hr
+				if (theloaidaxem[3])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth3
+					input.d-none#theloaidaxemMonth3(type=text, value=theloaidaxem[3])
+					hr
+				if (theloaidaxem[4])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth4
+					input.d-none#theloaidaxemMonth4(type=text, value=theloaidaxem[4])
+					hr
+				if (theloaidaxem[5])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth5
+					input.d-none#theloaidaxemMonth5(type=text, value=theloaidaxem[5])
+					hr
+				if (theloaidaxem[6])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth6
+					input.d-none#theloaidaxemMonth6(type=text, value=theloaidaxem[6])
+					hr
+
+				if (theloaidaxem[7])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth7
+					input.d-none#theloaidaxemMonth7(type=text, value=theloaidaxem[7])
+					hr
+
+				if (theloaidaxem[8])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth8
+					input.d-none#theloaidaxemMonth8(type=text, value=theloaidaxem[8])
+					hr
+
+				if (theloaidaxem[9])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth9
+					input.d-none#theloaidaxemMonth9(type=text, value=theloaidaxem[9])
+					hr
+
+				if (theloaidaxem[10])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth10
+					input.d-none#theloaidaxemMonth10(type=text, value=theloaidaxem[10])
+					hr
+
+				if (theloaidaxem[11])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth11
+					input.d-none#theloaidaxemMonth11(type=text, value=theloaidaxem[11])
+					hr
+
+				if (theloaidaxem[12])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartTheloaidaxemMonth12
+					input.d-none#theloaidaxemMonth12(type=text, value=theloaidaxem[12])
+					hr
+
+
+				// so luong comment trong 1 thang
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartSessionMonth4
-				input.d-none#sessionMonth4(type=text, value=sessionMonth4)
-				hr
+					h3.mt-4.pl-3#binhluanvachinhsua(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ SỐ LƯỢNG BÌNH LUẬN VÀ CHỈNH SỬA
+						i.fas.fa-chart-area.ml-3
+				if (allComment[1])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth1
+					input.d-none#allcommentMonth1(type=text, value=allComment[1])
+					hr
+					if (allChinhsua[1])
 
-			if (sessionMonth5[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartSessionMonth5
-				input.d-none#sessionMonth5(type=text, value=sessionMonth5)
-				hr
+				if (allComment[2])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth2
+					input.d-none#allcommentMonth2(type=text, value=allComment[2])
+					hr
+					if (allChinhsua[2])
+				if (allComment[3])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth3
+					input.d-none#allcommentMonth3(type=text, value=allComment[3])
+					hr
+					if (allChinhsua[3])
+				if (allComment[4])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth4
+					input.d-none#allcommentMonth4(type=text, value=allComment[4])
+					hr
+					if (allChinhsua[4])
+				if (allComment[5])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth5
+					input.d-none#allcommentMonth5(type=text, value=allComment[5])
+					hr
+					if (allChinhsua[6])
 
-			if (sessionMonth6[0]) 
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartSessionMonth6
-				input.d-none#sessionMonth6(type=text, value=sessionMonth6)
-				hr
+				if (allComment[6])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
+							i.fas.fa-fire-alt.ml-3 
 
-			if (sessionMonth7[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartSessionMonth7
-				input.d-none#sessionMonth7(type=text, value=sessionMonth7)
-				hr
-
-			if (sessionMonth8[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartSessionMonth8
-				input.d-none#sessionMonth8(type=text, value=sessionMonth8)
-				hr
-
-			if (sessionMonth9[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartSessionMonth9
-				input.d-none#sessionMonth9(type=text, value=sessionMonth9)
-				hr
-
-			if (sessionMonth10[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartSessionMonth10
-				input.d-none#sessionMonth10(type=text, value=sessionMonth10)
-				hr
-
-			if (sessionMonth11[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartSessionMonth11
-				input.d-none#sessionMonth11(type=text, value=sessionMonth11)
-				hr
-
-			if (sessionMonth12[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartSessionMonth12
-				input.d-none#sessionMonth12(type=text, value=sessionMonth12)
-				hr
-
-
-
-
-
-
-
-
-
-
-
-			// so luong bai viet trong thang
-			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ SỐ LƯỢNG BÀI VIẾT THEO THÁNG
-					i.fas.fa-chart-area.ml-3
-
-			if (newsMonth1[0]) 
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartNewsMonth1
-				input.d-none#newsMonth1(type=text, value=newsMonth1)
-
-			if (newsMonth2[0]) 
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartNewsMonth2
-				input.d-none#newsMonth2(type=text, value=newsMonth2)
-
-			if (newsMonth3[0]) 
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartNewsMonth3
-				input.d-none#newsMonth3(type=text, value=newsMonth3)
-
-			if (newsMonth4[0]) 
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartNewsMonth4
-				input.d-none#newsMonth4(type=text, value=newsMonth4)
-
-			if (newsMonth5[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartNewsMonth5
-				input.d-none#newsMonth5(type=text, value=newsMonth5)
-
-			if (newsMonth6[0]) 
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
-						i.fas.fa-fire-alt.ml-3
-				canvas#chartNewsMonth6
-				input.d-none#newsMonth6(type=text, value=newsMonth6)
-
-			if (newsMonth7[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartNewsMonth7
-				input.d-none#newsMonth7(type=text, value=newsMonth7)
-
-			if (newsMonth8[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartNewsMonth8
-				input.d-none#newsMonth8(type=text, value=newsMonth8)
-
-			if (newsMonth9[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartNewsMonth9
-				input.d-none#newsMonth9(type=text, value=newsMonth9)
-
-			if (newsMonth10[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartNewsMonth10
-				input.d-none#newsMonth10(type=text, value=newsMonth10)
-
-			if (newsMonth11[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartNewsMonth11
-				input.d-none#newsMonth11(type=text, value=newsMonth11)
-
-			if (newsMonth12[0])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartNewsMonth12
-				input.d-none#newsMonth12(type=text, value=newsMonth12)
-
-
-
-
-
-
-
-
-
-			// the loai duoc truy cap trong thang
-			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ THỂ LOẠI ĐƯỢC TRUY CẬP
-					i.fas.fa-chart-area.ml-3
-			if (theloaidaxem[1])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth1
-				input.d-none#theloaidaxemMonth1(type=text, value=theloaidaxem[1])
-				hr
-
-			if (theloaidaxem[2])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth2
-				input.d-none#theloaidaxemMonth2(type=text, value=theloaidaxem[2])
-				hr
-			if (theloaidaxem[3])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth3
-				input.d-none#theloaidaxemMonth3(type=text, value=theloaidaxem[3])
-				hr
-			if (theloaidaxem[4])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth4
-				input.d-none#theloaidaxemMonth4(type=text, value=theloaidaxem[4])
-				hr
-			if (theloaidaxem[5])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth5
-				input.d-none#theloaidaxemMonth5(type=text, value=theloaidaxem[5])
-				hr
-			if (theloaidaxem[6])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth6
-				input.d-none#theloaidaxemMonth6(type=text, value=theloaidaxem[6])
-				hr
-
-			if (theloaidaxem[7])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth7
-				input.d-none#theloaidaxemMonth7(type=text, value=theloaidaxem[7])
-				hr
-
-			if (theloaidaxem[8])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth8
-				input.d-none#theloaidaxemMonth8(type=text, value=theloaidaxem[8])
-				hr
-
-			if (theloaidaxem[9])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth9
-				input.d-none#theloaidaxemMonth9(type=text, value=theloaidaxem[9])
-				hr
-
-			if (theloaidaxem[10])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth10
-				input.d-none#theloaidaxemMonth10(type=text, value=theloaidaxem[10])
-				hr
-
-			if (theloaidaxem[11])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth11
-				input.d-none#theloaidaxemMonth11(type=text, value=theloaidaxem[11])
-				hr
-
-			if (theloaidaxem[12])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartTheloaidaxemMonth12
-				input.d-none#theloaidaxemMonth12(type=text, value=theloaidaxem[12])
-				hr
-
-
-			// so luong comment trong 1 thang
-			a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-				h3.mt-4.pl-3(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ SỐ LƯỢNG BÌNH LUẬN VÀ CHỈNH SỬA
-					i.fas.fa-chart-area.ml-3
-			if (allComment[1])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth1
-				input.d-none#allcommentMonth1(type=text, value=allComment[1])
-				hr
-				if (allChinhsua[1])
-
-			if (allComment[2])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth2
-				input.d-none#allcommentMonth2(type=text, value=allComment[2])
-				hr
-				if (allChinhsua[2])
-			if (allComment[3])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth3
-				input.d-none#allcommentMonth3(type=text, value=allComment[3])
-				hr
-				if (allChinhsua[3])
-			if (allComment[4])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth4
-				input.d-none#allcommentMonth4(type=text, value=allComment[4])
-				hr
-				if (allChinhsua[4])
-			if (allComment[5])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth5
-				input.d-none#allcommentMonth5(type=text, value=allComment[5])
-				hr
-				if (allChinhsua[6])
-
-			if (allComment[6])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
-						i.fas.fa-fire-alt.ml-3 
-
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h5.mt-4.pl-3.ml-3 +) Biểu Đồ Tổng Quát
-				canvas#chartAllcommentMonth6
-				input.d-none#allcommentMonth6(type=text, value=allComment)
-
-				if (allChinhsua[6])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-						h5.mt-4.pl-3.ml-3 +) Thông tin đã chỉnh sửa
-					table.table
-						thead(style="background-color: #c3e6cb")
-							tr
-								th(scope='col') #
-								th(scope='col') Ngày
-								th(scope='col') Giờ
-								th(scope='col') Người chỉnh sửa
-								th(scope='col') Chi tiết
-						tbody(style="background-color: #eee")
-							each chinhsua in allChinhsua[6]
+						h5.mt-4.pl-3.ml-3 +) Biểu Đồ Tổng Quát
+					canvas#chartAllcommentMonth6
+					input.d-none#allcommentMonth6(type=text, value=allComment)
+
+					if (allChinhsua[6])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Thông tin đã chỉnh sửa
+						table.table
+							thead(style="background-color: #c3e6cb")
 								tr
-									th(scope='row')= allChinhsua[6].indexOf(chinhsua)
-									td= chinhsua.thoigianchinhsua.slice(0, 15)
-									td= chinhsua.thoigianchinhsua.slice(15, 29)
-									td= chinhsua.thoigianchinhsua.slice(44)
-									td
-										button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
-										.dropdown-menu
-											a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
-											//- a.dropdown-item(href='#') Another action
-											//- a.dropdown-item(href='#') Something else here
-											//- .dropdown-divider
-											//- a.dropdown-item(href='#') Separated link
-									
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[6]
+									tr
+										th(scope='row')= allChinhsua[6].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+										
 
 
-			if (allComment[7])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth7
-				input.d-none#allcommentMonth7(type=text, value=allComment)
-				hr
-				if (allChinhsua[7])
+				if (allComment[7])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth7
+					input.d-none#allcommentMonth7(type=text, value=allComment)
+					hr
+					if (allChinhsua[7])
 
-			if (allComment[8])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth8
-				input.d-none#allcommentMonth8(type=text, value=allComment[8])
-				hr
-				if (allChinhsua[8])
+				if (allComment[8])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth8
+					input.d-none#allcommentMonth8(type=text, value=allComment[8])
+					hr
+					if (allChinhsua[8])
 
-			if (allComment[9])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth9
-				input.d-none#allcommentMonth9(type=text, value=allComment[9])
-				hr
-				if (allChinhsua[9])
+				if (allComment[9])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth9
+					input.d-none#allcommentMonth9(type=text, value=allComment[9])
+					hr
+					if (allChinhsua[9])
 
-			if (allComment[10])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth10
-				input.d-none#allcommentMonth10(type=text, value=alComment[10])
-				hr
-				if (allChinhsua[10])
+				if (allComment[10])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth10
+					input.d-none#allcommentMonth10(type=text, value=alComment[10])
+					hr
+					if (allChinhsua[10])
 
 
-			if (allComment[11])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth11
-				input.d-none#allcommentMonth11(type=text, value=alComment[11])
-				hr
-				if (allChinhsua[11])
+				if (allComment[11])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth11
+					input.d-none#allcommentMonth11(type=text, value=alComment[11])
+					hr
+					if (allChinhsua[11])
 
-			if (allComment[12])
-				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-					h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
-						i.fas.fa-fire-alt.ml-3 
-				canvas#chartAllcommentMonth12
-				input.d-none#allcommentMonth12(type=text, value=alComment[12])
-				hr
-				if (allChinhsua[12])
+				if (allComment[12])
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
+							i.fas.fa-fire-alt.ml-3 
+					canvas#chartAllcommentMonth12
+					input.d-none#allcommentMonth12(type=text, value=alComment[12])
+					hr
+					if (allChinhsua[12])
+
+
+
+				.screenshoot.mt-5.d-flex#screenshoot(style="display: none; flex-wrap: wrap")
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") 
+							|THỐNG KÊ CHƯƠNG TRÌNH QUẢN LÍ BAOMOI.COM
 
 			
 
@@ -472,4 +492,13 @@ block content
 
 	script(type='text/javascript', src='html2canvas-master/dist/html2canvas.js')
 
+	script(type='text/javascript').
+		function screenshot(){
+			html2canvas(document.getElementById("container")).then(function(canvas) {
+				var elmnt = document.getElementById("screenshoot")
+				elmnt.style.display = "block"
+				elmnt.scrollIntoView();
+				document.getElementById("screenshoot").appendChild(canvas);
 
+			});
+		}
