@@ -24,14 +24,14 @@ html
   script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
   script(src="rating.js")
   body(style="background-color: #6D4C45")
-    
+
     .container-fluid(style='background-color: white; padding: 0;')
       <div class="top">
         <div class="logo"><img height="40px" src="image/logo/logo.png" alt=""></div>
-        <div class="search">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+         <form action="timkiem" method="GET" class="search m-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
             <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-        </div> 
+        </form>  
         <div class="right-top d-flex" style="align-items: center; justify-content: space-around">
             <div style="margin-right: 10px">
               <a href="http://localhost:3000/admin" class="badge badge-info">ADMIN</a>
@@ -51,8 +51,8 @@ html
             </div>
         </div>
       </div>
-      <div class="menu">
-        <ul style="background-color: #575859; margin-bottom: 0">
+      <div class="menu" style="margin-top: 15px;">
+        <ul style="background-color: #2fa1b3; margin-bottom: 0">
           <li><a href="/trangchu"><i class="fas fa-home"></i></a></li>
           <li><a href="/xahoi">XÃ HỘI</a></li>
           <li><a href="/thegioi">THẾ GIỚI</a></li>

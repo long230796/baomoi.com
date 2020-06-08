@@ -527,10 +527,10 @@ block content
 	script(type='text/javascript').
 		function screenshot(){
 			html2canvas(document.getElementById("container")).then(function(canvas) {
+				document.getElementById("screenshoot").appendChild(canvas);
 				var elmnt = document.getElementById("screenshoot")
 				elmnt.style.display = "block"
 				elmnt.scrollIntoView();
-				document.getElementById("screenshoot").appendChild(canvas);
 
 			});
 		}

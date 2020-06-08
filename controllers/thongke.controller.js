@@ -272,7 +272,7 @@ module.exports.getStatistic = async function (req, res) {
 
 	}
 
-	console.log(allComment)
+	console.log(theloaidaxem)
 	res.render("thongke/index.pug", {
 		sessionMonth1: sessionMonth1,
 		sessionMonth2: sessionMonth2,

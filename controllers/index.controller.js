@@ -3,6 +3,7 @@ var Theloai = require('../models/theloai.model.js')
 var Session = require('../models/session.model.js')
 var Admin = require('../models/admin.model.js')
 var shortid = require('shortid')
+var	globalBaivietxemnhieu
 
 module.exports.getIndex = async function (req, res) {
 	var sessionId = req.signedCookies.sessionId
@@ -10,7 +11,8 @@ module.exports.getIndex = async function (req, res) {
 	var tinmoi = await Tinmoi.find({});
 	var tinmoiTemp = await Tinmoi.find({});
 	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
-
+	var sessionTable = await Session.find()
+	
 	// find max length comment.
 	var maxComment = tinmoiTemp;   //vì thay đổi giá trị của maxComment củng thay đổi giá trị của giá trị gán với nó 
 	var temp;						//nên dùng 1 table tinmoi tạm để tìm maxComment					
@@ -25,12 +27,49 @@ module.exports.getIndex = async function (req, res) {
         }
     }
 	maxComment.splice(6)
+
+	// find baivietdaxem
+	var idBaivietdaxem = []
+	for (element of sessionTable) {
+		if (element.baivietdaxem[0]) {
+			for (item of element.baivietdaxem) {
+				idBaivietdaxem.push(item)
+			}
+		}
+	}
+
+	// dem so lan xuat hien cua id
+	var  countId= {};
+	for (element of idBaivietdaxem) {
+		countId[element] = (countId[element] || 0) + 1
+	}
+
+	// sap xep theo thu tu tang dan
+	keysSorted = Object.keys(countId).sort(function(a,b){
+	  return countId[b]-countId[a]
+	})
+
+	// tim kiem trong tableTinmoi va luu vao mang
+	var baivietxemnhieu = []
+	for (element of keysSorted) {
+		baivietxemnhieu.push(await Tinmoi.findOne({id: element}))
+	}
+
+	// loc ra 5 bai viet xem nhieu
+	baivietxemnhieu.slice(0, 10)
+	globalBaivietxemnhieu = baivietxemnhieu
+	// console.log(baivietxemnhieu)
+	
+
+
+
 	res.render('index', {
 		tinmois: tinmoi,
 		theloais: theloai,
 		sessionId: sessionId,
 		adminId: adminId,
-		maxComments: maxComment
+		maxComments: maxComment,
+		baivietxemnhieu: baivietxemnhieu
 	})
 }
 
@@ -47,15 +86,18 @@ module.exports.getNews = async function (req, res) {
 	var allNews = await Tinmoi.find({})
 	var session = await Session.findOne({sessionId: sessionId})
 	session.theloaidaxem.push(theloai)
+	session.baivietdaxem.push(id)
 	session.save()
-	
+	// console.log(globalBaivietxemnhieu)
 	res.render('news', {
 		news: news,
 		tinlienquan: tinlienquan,
 		allNews: allNews,
 		adminId: adminId,
 		session: session,
+		baivietxemnhieu: globalBaivietxemnhieu
 	})
+
 }
 
 module.exports.postComment = async function (req, res) {

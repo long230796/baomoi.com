@@ -6,7 +6,8 @@ var sessionSchema = new mongoose.Schema({
 	sessionId: String,
 	date: String,
 	time: String,
-	theloaidaxem: Array
+	theloaidaxem: Array,
+	baivietdaxem: Array
 });
 
 var Session = mongoose.model('Session', sessionSchema, 'session')
