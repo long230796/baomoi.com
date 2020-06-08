@@ -9,7 +9,8 @@ block content
 					if (adminId)
 						.btn-group.mt-4
 							button.btn.btn-danger.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-								i.fas.fa-th-list
+								|Chức năng
+								//- i.fas.fa-th-list.ml-3
 							.dropdown-menu
 								button.dropdown-item(type="button" onclick="displayForm(this.value)" value=news.theloai+'-'+news.firstNews+'-'+news.trangthai) Sửa
 								button.dropdown-item(type="button", onclick="checkDelete()") Xóa
@@ -101,7 +102,8 @@ block content
 					if (adminId)
 						.btn-group.mt-4
 							button.btn.btn-danger.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-								i.fas.fa-th-list
+								|Chức năng
+								//- i.fas.fa-th-list.ml-3
 							.dropdown-menu
 								button.dropdown-item(type="button" onclick="displayForm(this.value)" value=news.theloai+'-'+news.firstNews+'-'+news.trangthai) Sửa
 								button.dropdown-item(type="button" onclick="checkDelete()") Xóa
@@ -199,7 +201,8 @@ block content
 					if (adminId)
 						.btn-group.mt-4
 							button.btn.btn-danger.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-								i.fas.fa-th-list
+								|Chức năng
+								//- i.fas.fa-th-list.ml-3
 							.dropdown-menu
 								button.dropdown-item(type="button" onclick="displayForm(this.value)" value=news.theloai+'-'+news.firstNews+'-'+news.trangthai) Sửa
 								button.dropdown-item(type="button" onclick="checkDelete()") Xóa
@@ -374,7 +377,10 @@ block content
 				.wrap.tlq.mt-3(style='width: 100%')
 					.tinlienquan(style='display: flex; justify-content: center; background-color: #ef5350')
 						h4 TIN LIÊN QUAN 
-					image.tlq(src=tinlienquan[0].image style="height: 100px; width: 100%; border-radius: 0")
+					if (tinlienquan[1])
+						image.tlq(src=tinlienquan[1].image style="height: 100px; width: 100%; border-radius: 0")
+					else 
+						image.tlq(src=tinlienquan[0].image style="height: 100px; width: 100%; border-radius: 0")
 					each tlq in tinlienquan
 						.content.tlq(style='background-color: #ffeeef;')
 							div(style='border-bottom: 1px solid #fad5d6; display: flex; align-items: center;')
@@ -384,7 +390,10 @@ block content
 			.wrap.tinmoi.mt-5(style='width: 100%')
 				.tinmoi(style='display: flex; justify-content: center; background-color: #ef5350')
 					h4 TIN MOI 
-				image.tinmoi(src=allNews[0].image style="height: 100px; width: 100%; border-radius: 0")
+				if (allNews[1])
+					image.tinmoi(src=allNews[1].image style="height: 100px; width: 100%; border-radius: 0")
+				else 
+					image.tinmoi(src=allNews[0].image style="height: 100px; width: 100%; border-radius: 0")
 				each allNew in allNews
 					.content.tinmoi(style='background-color: #ffeeef;')
 						div(style='border-bottom: 1px solid #fad5d6; display: flex; align-items: center;')

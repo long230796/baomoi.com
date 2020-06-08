@@ -13,9 +13,9 @@ html
   link(rel="stylesheet" href="css/tin-tong-hop.css")
   link(rel="stylesheet" href="css/tin-the-gioi.css")
   link(rel="stylesheet" href="css/input-file-news.css")
+  link(href='http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css', rel='stylesheet')
   link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
   link(rel="stylesheet" href="https://raw.githubusercontent.com/kartik-v/bootstrap-star-rating/master/css/star-rating.min.css")
-  link(href='http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css', rel='stylesheet')
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css')
 
 
@@ -39,12 +39,19 @@ html
         </form> 
         <div class="right-top d-flex" style="align-items: center; justify-content: space-around">
             <div style="margin-right: 10px">
-              <a href="http://localhost:3000/admin" class="badge badge-info">Admin</a>
+              <a class="badge badge-info" href="http://localhost:3000/admin" style="background-color: #2fa1b3;text-decoration-none; color: #fff; text-decoration: none" onmouseover="this.style.backgroundColor='#035664'" onmouseout="this.style.backgroundColor='#2fa1b3'">ADMIN
+              </a>
             </div>
 
             <div style="margin-right: 10px">
-              <a href="http://localhost:3000/trangchu" class="badge badge-info">Trangchu</a>
+              <a class="badge badge-info" href="http://localhost:3000/trangchu" style="background-color: #2fa1b3;text-decoration-none; color: #fff; text-decoration: none" onmouseover="this.style.backgroundColor='#035664'" onmouseout="this.style.backgroundColor='#2fa1b3'"> TRANG CHỦ
+              </a>
             </div>
+            if (adminId)
+              <div style="margin-right: 10px">
+                <a class="badge badge-info" href="http://localhost:3000/thongke" style="background-color: #2fa1b3;text-decoration-none; color: #fff; text-decoration: none" onmouseover="this.style.backgroundColor='#035664'" onmouseout="this.style.backgroundColor='#2fa1b3'"> THỐNG KÊ
+                </a>
+              </div>
 
             <div style="margin-right: 10px">
               <div class="fa fa-user pad"></div>

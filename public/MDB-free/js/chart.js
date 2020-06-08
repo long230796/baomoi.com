@@ -226,14 +226,6 @@ function chart(counts, canvasId) {
 					countComment[arr.date] = (countComment[arr.date] || 0) + 1
 				}
 
-			} else {
-				for (key in counts[count]) {
-					if (key !== "time") {
-						data2.unshift(counts[count][key])
-						// đẩy ngày chỉnh sửa vào labels
-						labels.push(key)
-					}
-				}
 			}
 		}
 		// đẩy ngày comment vào labels
@@ -242,17 +234,44 @@ function chart(counts, canvasId) {
 			data1.push(countComment[key])
 		}
 
+		// sap xep ngay chinh sua theo tăng dần
+		var tempArr = []
+		for (key in counts.ngaychinhsua) {
+			if (key !== "time") {
+				tempArr.push(key+"-"+counts.ngaychinhsua[key])
+				
+				// sap xep ngay theo thu tu tang dan
+				tempArr.sort(function (a, b) {
+					var date1 = a.split("/")[0]
+					var date2 = b.split("/")[0]
+					return date1 - date2
+				})
+
+			}
+		}
+
+		//đẩy ngày chỉnh sửa vào labels
+		for (element of tempArr) {
+			labels.push(element.split("-")[0])
+			data2.push(JSON.parse(element.split("-")[1]))
+			
+		}
+
 		// loai ptu trung nhau cua labels
 		labels = labels.filter(function (item, index) {
 		    return labels.indexOf(item) === index;
 		});
 		// sap xep ngay theo thu tu tang dan
-		labels.sort(function (a, b) {
-			var date1 = a.split("/")[0]
-			var date2 = b.split("/")[0]
-			return date1 - date2
-		})
-		console.log(labels)
+		// labels.sort(function (a, b) {
+		// 	var date1 = a.split("/")[0]
+		// 	var date2 = b.split("/")[0]
+		// 	return date1 - date2
+		// })
+		// console.log("counts",counts)
+		// console.log("countComment", countComment)
+		// console.log("labels", labels)
+		// console.log("data1", data1)
+		// console.log("data2", data2)
 		
 
 		var ctxL = document.getElementById(canvasId).getContext('2d');

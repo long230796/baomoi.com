@@ -98,8 +98,14 @@ module.exports.getStatistic = async function (req, res) {
 			}
 		}
 	}
+	// // sap xep ngay theo thu tu tang dan
+	// 	labels.sort(function (a, b) {
+	// 		var date1 = a.split("/")[0]
+	// 		var date2 = b.split("/")[0]
+	// 		return date1 - date2
+	// 	})
 
-	// // lấy tất thể loại đã xem
+	// lấy tất thể loại đã xem
 	var theloaidaxem = {}
 	getCategoryByMonth(theloaidaxem)
 
@@ -265,7 +271,7 @@ module.exports.getStatistic = async function (req, res) {
 
 	}
 
-	console.log(allComment)
+	console.log(countChinhsua)
 	res.render("mdb/index.pug", {
 		sessionMonth1: sessionMonth1,
 		sessionMonth2: sessionMonth2,

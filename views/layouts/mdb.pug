@@ -27,7 +27,7 @@ body(style="background-color: #6D4C45")
   .container-fluid(style='background-color: white; padding: 0; ')
     <div class="top">
       <div class="logo"><a href="/trangchu"><img height="40px" src="image/logo/logo.png" alt=""></a></div>
-      <form class="active-cyan-3 active-cyan-4 d-flex">
+      <form class="active-cyan-3 active-cyan-4 d-flex" action="timkiem" method="GET" >
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
           button.btn.btn-outline-info.waves-effect.m-0.d-flex(type='button' style="padding: 0px 11px") Tìm kiếm
       </form> 
@@ -46,7 +46,7 @@ body(style="background-color: #6D4C45")
             <div class="fa fa-mobile pad"></div>
           </div>
       button.btn.btn-outline-default.waves-effect(type='button' id='but_screenshot' value='Take screenshot' onclick='screenshot()')
-        | Print to file
+        | Xuất file
         i.fas.fa-print.ml-3          
       </div>
     </div>
