@@ -63,7 +63,7 @@ module.exports.getStatistic = async function (req, res) {
 
 	// lặp qua tinmoi và lưu vào dslk
 	for (data of tinmoiTable) {
-		tinmoiList.addFirst(data.id, data.ngaythang, data.thoigian, data.comment)
+		tinmoiList.addFirst(data.id, data.ngaythang, data.thoigian, data.comment, data.theloai)
 		chinhsuaList.addFirst(data.id, data.ngaythang, data.thoigian, data.chinhsua, data.theloai)
 	}
 
@@ -139,7 +139,8 @@ module.exports.getStatistic = async function (req, res) {
 					for (data of node.theloaidaxem) {
 						// nếu không tồn tại thì tạo mới
 						if (!obj[month]) {
-							obj[month] = [data] 
+							obj[month] = [data]
+							// obj[month][obj[month].length-1].theloai = node.theloai 
 							for (key in countChinhsua) {
 								if (key == month) {
 									obj.ngaychinhsua = countChinhsua[key]				
@@ -271,8 +272,8 @@ module.exports.getStatistic = async function (req, res) {
 
 	}
 
-	console.log(countChinhsua)
-	res.render("mdb/index.pug", {
+	console.log(allComment)
+	res.render("thongke/index.pug", {
 		sessionMonth1: sessionMonth1,
 		sessionMonth2: sessionMonth2,
 		sessionMonth3: sessionMonth3,

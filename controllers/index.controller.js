@@ -75,11 +75,11 @@ module.exports.postComment = async function (req, res) {
 	var session = await Session.findOne({sessionId: sessionId})
 
 	var theloaihientai = news.theloai;
-	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
-	var lengthTheloai = theloai[theloaihientai].length;
+	var tableTheloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
+	var lengthTheloai = tableTheloai[theloaihientai].length;
 
 	// luu vao danh sach lien ket 
-	function DoublyLinkedListNode(id, name, email, comment, rating, date, time, idCommenter) {
+	function DoublyLinkedListNode(id, name, email, comment, rating, date, time, idCommenter, theloai) {
 		this.newsId = id;
 		this.idCommenter = idCommenter;
 		this.name = name;
@@ -88,6 +88,7 @@ module.exports.postComment = async function (req, res) {
 		this.rating = rating;
 		this.date = date;
 		this.time = time;
+		this.theloai = theloai;
 		this.next = null;
 		this.prev = null;
 	}
@@ -102,9 +103,9 @@ module.exports.postComment = async function (req, res) {
 		return this.size == 0;
 	}
 
-	DoublyLinkedList.prototype.addLast = function (id, name, email, comment, rating, date, time, idCommenter) {
+	DoublyLinkedList.prototype.addLast = function (id, name, email, comment, rating, date, time, idCommenter, theloai) {
 		if (this.tail === null) {
-			this.tail = new DoublyLinkedListNode(id, name, email, comment, rating, date, time, idCommenter);
+			this.tail = new DoublyLinkedListNode(id, name, email, comment, rating, date, time, idCommenter, theloai);
 			this.head = this.tail;
 
 			news.comment.push({
@@ -115,7 +116,8 @@ module.exports.postComment = async function (req, res) {
 				comment: this.head.comment,
 				rating: this.head.rating,
 				date: this.head.date,
-				time: this.head.time
+				time: this.head.time,
+				theloai: this.head.theloai
 
 			})
 			session.idCommenter = this.head.idCommenter;
@@ -123,8 +125,8 @@ module.exports.postComment = async function (req, res) {
 			news.save();
 
 			for (var i = 0; i < lengthTheloai; i ++) {
-				if (theloai[theloaihientai][i].id == id) {
-					theloai[theloaihientai][i].comment.push({
+				if (tableTheloai[theloaihientai][i].id == id) {
+					tableTheloai[theloaihientai][i].comment.push({
 						newsId: this.head.newsId,
 						idCommenter: this.head.idCommenter,
 						name: this.head.name,
@@ -132,12 +134,13 @@ module.exports.postComment = async function (req, res) {
 						comment: this.head.comment,
 						rating: this.head.rating,
 						date: this.head.date,
-						time: this.head.time
+						time: this.head.time,
+						theloai: this.head.theloai
 					})
 					// using push with the subdocomment, mongoose dont know that this field has changed. so doesn't save
 					// using markModified and specified the path you want to save
-					theloai.markModified(theloaihientai)
-					theloai.save()
+					tableTheloai.markModified(theloaihientai)
+					tableTheloai.save()
 					break;
 				}
 			}
@@ -145,7 +148,7 @@ module.exports.postComment = async function (req, res) {
 	}
 
 	var dll = new DoublyLinkedList
-	dll.addLast(id, name, email, comment, rating, date, time, idCommenter);
+	dll.addLast(id, name, email, comment, rating, date, time, idCommenter, theloaihientai );
 
 	res.redirect("/trangchu/tin-tuc-hot/" + id);
 
@@ -165,9 +168,10 @@ module.exports.postNewComment = async function (req, res) {
 	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
 	var lengthTheloai = theloai[theloaihientai].length;
 
-	function DoublyLinkedListNode(newComment, newRating) {
+	function DoublyLinkedListNode(newComment, newRating, theloai) {
 		this.newComment = newComment;
 		this.newRating = newRating;
+		this.theloai = theloai
 		this.next = null;
 		this.prev = null;
 	}
@@ -182,15 +186,16 @@ module.exports.postNewComment = async function (req, res) {
 		return this.size == 0;
 	}
 
-	DoublyLinkedList.prototype.addLast = function (newComment, newRating) {
+	DoublyLinkedList.prototype.addLast = function (newComment, newRating, theloai) {
 		if (this.tail === null) {
-			this.tail = new DoublyLinkedListNode(newComment, newRating);
+			this.tail = new DoublyLinkedListNode(newComment, newRating, theloai);
 			this.head = this.tail;
 
 			for (var i = 0; i < news.comment.length; i ++) {
 				if (news.comment[i].idCommenter == idCommenter) {
 					news.comment[i].comment = this.head.newComment;
 					news.comment[i].rating = this.head.newRating;
+					news.comment[i].theloai = this.head.theloai;
 					news.markModified("comment")
 					news.save()
 					break;
@@ -205,6 +210,7 @@ module.exports.postNewComment = async function (req, res) {
 						if (theloai[theloaihientai][i].comment[j].idCommenter == idCommenter) {											
 							theloai[theloaihientai][i].comment[j].comment = this.head.newComment
 							theloai[theloaihientai][i].comment[j].rating = this.head.newRating
+							theloai[theloaihientai][i].comment[j].theloai = this.head.theloai
 							// using push with the subdocomment, mongoose dont know that this field has changed. so doesn't save
 							// using markModified and specified the path you want to save
 							theloai.markModified(theloaihientai)
@@ -219,7 +225,7 @@ module.exports.postNewComment = async function (req, res) {
 	}
 
 	var dll = new DoublyLinkedList
-	dll.addLast(newComment, newRating);
+	dll.addLast(newComment, newRating, theloaihientai);
 	res.redirect("/trangchu/tin-tuc-hot/" + idNews);
 
 

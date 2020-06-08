@@ -378,6 +378,38 @@ block content
 					canvas#chartAllcommentMonth6
 					input.d-none#allcommentMonth6(type=text, value=allComment)
 
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3 +) Thông tin đã bình luận
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[6]
+								tr
+									th(scope='row')= allComment[6].indexOf(comment)
+									td= comment.date
+									td= comment.time
+									td= comment.name
+									td= comment.email
+									td= comment.comment
+									td
+										button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+										.dropdown-menu
+											a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+											//- a.dropdown-item(href='#') Another action
+											//- a.dropdown-item(href='#') Something else here
+											//- .dropdown-divider
+											//- a.dropdown-item(href='#') Separated link
+
+
 					if (allChinhsua[6])
 						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 							h5.mt-4.pl-3.ml-3 +) Thông tin đã chỉnh sửa

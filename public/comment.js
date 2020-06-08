@@ -131,9 +131,13 @@ for (var i = 0; i < submitUpdate.length; i ++) {
 
 }
 
+for (var i = 0; i < actionDelete.length; i ++) {
+	actionDelete[i].addEventListener('click', deleteUpdate)
+
+}
+
 for (var i = 0; i < actionUpdate.length; i ++) {
 	actionUpdate[i].addEventListener('click', displayUpdate)
-	actionDelete[i].addEventListener('click', deleteUpdate)
 
 }
 
