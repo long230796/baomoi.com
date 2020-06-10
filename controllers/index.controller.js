@@ -39,9 +39,9 @@ module.exports.getIndex = async function (req, res) {
 	}
 
 	// dem so lan xuat hien cua id
-	var  countId= {};
+	var  countId = {};
 	for (element of idBaivietdaxem) {
-		countId[element] = (countId[element] || 0) + 1
+		countId[element.id] = (countId[element.id] || 0) + 1
 	}
 
 	// sap xep theo thu tu tang dan
@@ -52,15 +52,18 @@ module.exports.getIndex = async function (req, res) {
 	// tim kiem trong tableTinmoi va luu vao mang
 	var baivietxemnhieu = []
 	for (element of keysSorted) {
-		baivietxemnhieu.push(await Tinmoi.findOne({id: element}))
-	}
+		var data = await Tinmoi.findOne({id: element})
+		if (data) {
+			baivietxemnhieu.push(data)	
+		}
+	}	
 
 	// loc ra 5 bai viet xem nhieu
-	baivietxemnhieu.slice(0, 10)
+	baivietxemnhieu = baivietxemnhieu.slice(0, 10)
 	globalBaivietxemnhieu = baivietxemnhieu
-	// console.log(baivietxemnhieu)
-	
+	// console.log(keysSorted)
 
+	console.log(baivietxemnhieu)
 
 
 	res.render('index', {
@@ -77,6 +80,9 @@ module.exports.getIndex = async function (req, res) {
 
 
 module.exports.getNews = async function (req, res) {
+	var d = new Date();
+	var date = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+
 	var sessionId = req.signedCookies.sessionId
 	var adminId = req.signedCookies.adminId
 	var id = req.params.id;
@@ -86,7 +92,7 @@ module.exports.getNews = async function (req, res) {
 	var allNews = await Tinmoi.find({})
 	var session = await Session.findOne({sessionId: sessionId})
 	session.theloaidaxem.push(theloai)
-	session.baivietdaxem.push(id)
+	session.baivietdaxem.push({id: id, date: date})
 	session.save()
 	// console.log(globalBaivietxemnhieu)
 	res.render('news', {
@@ -233,7 +239,9 @@ module.exports.postNewComment = async function (req, res) {
 			this.tail = new DoublyLinkedListNode(newComment, newRating, theloai);
 			this.head = this.tail;
 
+			// cập nhật trong tableTinmoi
 			for (var i = 0; i < news.comment.length; i ++) {
+				// nếu tìm thấy thì thay giá trị bằng giá trị mới
 				if (news.comment[i].idCommenter == idCommenter) {
 					news.comment[i].comment = this.head.newComment;
 					news.comment[i].rating = this.head.newRating;
@@ -245,11 +253,14 @@ module.exports.postNewComment = async function (req, res) {
 			}
 			
 
-
+			// cập nhật trong tableTheloai
 			for (var i = 0; i < lengthTheloai; i ++) {
+				// tỉm ra bài biết chứa comment 
 				if (theloai[theloaihientai][i].id == idNews) {
+					// nếu tìm thấy thì lặp qua các comment để tìm comment muốn sửa
 					for (var j = 0; j < theloai[theloaihientai][i].comment.length; j ++) {
-						if (theloai[theloaihientai][i].comment[j].idCommenter == idCommenter) {											
+						if (theloai[theloaihientai][i].comment[j].idCommenter == idCommenter) {
+							// khi tìm thấy thì thay đổi giá trị bằng giá trị mới											
 							theloai[theloaihientai][i].comment[j].comment = this.head.newComment
 							theloai[theloaihientai][i].comment[j].rating = this.head.newRating
 							theloai[theloaihientai][i].comment[j].theloai = this.head.theloai
@@ -266,7 +277,8 @@ module.exports.postNewComment = async function (req, res) {
 		} 
 	}
 
-	var dll = new DoublyLinkedList
+	var dll = new DoublyLinkedList()
+	//gọi hàm addlast của dslk
 	dll.addLast(newComment, newRating, theloaihientai);
 	res.redirect("/trangchu/tin-tuc-hot/" + idNews);
 
@@ -284,13 +296,15 @@ module.exports.deleteComment = async function (req, res) {
 	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
 	var lengthTheloai = theloai[theloaihientai].length;
 
+	// dslk có 3 phần chính
+	// node
 	function DoublyLinkedListNode(idNews, idCommenter) {
 		this.idNews = idNews;
 		this.idCommenter = idCommenter;
 		this.next = null;
 		this.prev = null;
 	}
-
+	// danh sach
 	function DoublyLinkedList() {
 		this.head = null;
 		this.tail = null;
@@ -300,31 +314,34 @@ module.exports.deleteComment = async function (req, res) {
 	DoublyLinkedList.prototype.isEmpty = function() {
 		return this.size == 0;
 	}
-
+	// các hàm
 	DoublyLinkedList.prototype.addLast = function (idNews, idCommenter) {
 		if (this.tail === null) {
 			this.tail = new DoublyLinkedListNode(idNews, idCommenter);
 			this.head = this.tail;
 
+			// xoa ben tableTinmoi
 			for (var i = 0; i < news.comment.length; i ++) {
+				// tìm kiếm comment muốn xóa
 				if (news.comment[i].idCommenter == idCommenter) {
 					news.comment.splice(i, 1)
-					news.markModified("comment")
+					news.markModified("comment")  // cú pháp xác định đối tượng cần thao tác 
 					news.save()
 					break;
 				}
 			}
 			
-
+			// xoa ben tableTheloai
 			for (var i = 0; i < lengthTheloai; i ++) {
+				// tìm ra bài viết chứa comment
 				if (theloai[theloaihientai][i].id == idNews) {
 					for (var j = 0; j < theloai[theloaihientai][i].comment.length; j ++) {
+						// lặp qua các comment để tim comment cần xóa
 						if (theloai[theloaihientai][i].comment[j].idCommenter == idCommenter) {											
 
 							theloai[theloaihientai][i].comment.splice(j, 1);  // bo di 1 ptu tai vitri j
 							
-							// using push with the subdocomment, mongoose dont know that this field has changed. so doesn't save
-							// using markModified and specified the path you want to save
+							// dùng markModified để xác định field nào đang thay đổi (cú pháp sửa database)
 							theloai.markModified(theloaihientai)
 							theloai.save()
 							break;
@@ -336,7 +353,7 @@ module.exports.deleteComment = async function (req, res) {
 		} 
 	}
 
-	var dll = new DoublyLinkedList
+	var dll = new DoublyLinkedList()
 	dll.addLast(idNews, idCommenter);
 	res.redirect("/trangchu/tin-tuc-hot/" + idNews);
 
@@ -636,20 +653,66 @@ module.exports.deleteNews = async function (req, res) {
 	var theloai = req.body.theloai
 	var idNews = req.params.id;
 	var objId = req.body.objId;
-	// lấy được id thì tìm
-	var tableTinmoi = await Tinmoi.findOne({_id: objId})
-	var tableTheloai = await Theloai.findOne({_id: idTheloai})
-	// xóa trong tin mới
-	await tableTinmoi.deleteOne()
+
+	function DoublyLinkedListNode (idTheloai, theloai, idNews, objId) {
+		this.idTheloai = idTheloai;
+		this.theloai = theloai;
+		this.idNews = idNews;
+		this.objId = objId;
+		this.next = null;
+		this.prev = null;
+
+	}
+
+	function DoublyLinkedList() {
+		this.head = null;
+		this.tail = null;
+		this.size = 0;
+	}
+
+
+	DoublyLinkedList.prototype.addLast = async function (idTheloai, theloai, idNews, objId) {
+		if (this.tail === null) {
+			this.tail = new DoublyLinkedListNode(idTheloai, theloai, idNews, objId);
+			this.head = this.tail;
+
+			// lấy được id thì tìm trong database
+			var tableTinmoi = await Tinmoi.findOne({_id: this.head.objId})
+			var tableTheloai = await Theloai.findOne({_id: this.head.idTheloai})
+			// xóa trong tin mới
+			await tableTinmoi.deleteOne()
+
+			for (var i = 0; i < tableTheloai[this.head.theloai].length; i ++) {
+				if (tableTheloai[this.head.theloai][i].id === this.head.idNews) {
+					tableTheloai[this.head.theloai].splice(i, 1)  // remove 1 phan tử từ vị trí thứ i
+					tableTheloai.save()
+					break;
+				}
+			}
+			res.redirect("/trangchu");
+
+
+		} else {
+			var temp = new DoublyLinkedListNode(idTheloai, theloai, idNews, objId);
+			this.tail.next = temp;
+			temp.prev = this.tail;
+			this.tail = temp;
+		}
+		this.size++;
+	}
+
+
+	var list = new DoublyLinkedList()
+	list.addLast(idTheloai, theloai, idNews, objId)
+
+
+	// // lấy được id thì tìm
+	// var tableTinmoi = await Tinmoi.findOne({_id: objId})
+	// var tableTheloai = await Theloai.findOne({_id: idTheloai})
+	// // xóa trong tin mới
+	// await tableTinmoi.deleteOne()
 
 
 	// xóa trong thể loại
-	for (var i = 0; i < tableTheloai[theloai].length; i ++) {
-		if (tableTheloai[theloai][i].id === idNews) {
-			tableTheloai[theloai].splice(i, 1)  // remove 1 phan tử từ vị trí thứ i
-			tableTheloai.save()
-			break;
-		}
-	}
-	res.redirect("/trangchu");
+	
 }

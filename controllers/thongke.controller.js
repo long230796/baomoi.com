@@ -143,7 +143,7 @@ module.exports.getStatistic = async function (req, res) {
 							// obj[month][obj[month].length-1].theloai = node.theloai 
 							for (key in countChinhsua) {
 								if (key == month) {
-									obj.ngaychinhsua = countChinhsua[key]				
+									obj[month].push({ngaychinhsua: countChinhsua[key]})				
 								}
 							}
 						} else {
@@ -272,7 +272,179 @@ module.exports.getStatistic = async function (req, res) {
 
 	}
 
-	console.log(theloaidaxem)
+	// danh sach lien ket thu 2
+	function DoublyLinkedListSessionNode(data) {
+		this.data = data
+	}
+
+	function DoublyLinkedListSession() {
+		this.head = null;
+		this.tail = null;
+		this.size = 0;
+		
+	}
+
+	DoublyLinkedListSession.prototype.addLast = function (data) {
+		if (this.tail === null) {
+			this.tail = new DoublyLinkedListSessionNode(data);
+			this.head = this.tail;
+		} else {
+			var temp = new DoublyLinkedListSessionNode(data);
+			this.tail.next = temp;
+			temp.prev = this.tail;
+			this.tail = temp;
+		}
+		this.size++;
+	} 
+
+	var listSession = new DoublyLinkedListSession()
+
+	for (element of sessionTable) {
+		if (element.baivietdaxem[0]) {
+			for (item of element.baivietdaxem) {
+				listSession.addLast(item)
+			}
+		}
+	}
+
+	var seenNewsMonth1 = []
+	var seenNewsMonth2 = []
+	var seenNewsMonth3 = []
+	var seenNewsMonth4 = []
+	var seenNewsMonth5 = []
+	var seenNewsMonth6 = []
+	var seenNewsMonth7 = []
+	var seenNewsMonth8 = []
+	var seenNewsMonth9 = []
+	var seenNewsMonth10 = []
+	var seenNewsMonth11 = []
+	var seenNewsMonth12 = []
+
+
+
+	for (var node = listSession.head; node != null; node = node.next) {
+		switch(node.data.date.split("/")[1]) {
+			case '1': 
+				seenNewsMonth1.push(node.data)
+				break
+			case '2': 
+				seenNewsMonth2.push(node.data)
+				break
+			case '3': 
+				seenNewsMonth3.push(node.data)
+				break
+			case '4': 
+				seenNewsMonth4.push(node.data)
+				break
+			case '5': 
+				seenNewsMonth5.push(node.data)
+				break
+			case '6': 
+				seenNewsMonth6.push(node.data)
+				break
+			case '7': 
+				seenNewsMonth7.push(node.data)
+				break
+			case '8': 
+				seenNewsMonth8.push(node.data)
+				break
+			case '9': 
+				seenNewsMonth9.push(node.data)
+				break
+			case '10': 
+				seenNewsMonth10.push(node.data)
+				break
+			case '11': 
+				seenNewsMonth11.push(node.data)
+				break
+			case '12': 
+				seenNewsMonth12.push(node.data)
+				break
+		}	
+	}	
+
+	// keysSorted = Object.keys(countId).sort(function(a,b){
+	//   return countId[b]-countId[a]
+	// })
+
+	var allSeenNews = []
+	var dataSeenNews = []
+
+	countIdMonth(seenNewsMonth1)
+	countIdMonth(seenNewsMonth2)
+	countIdMonth(seenNewsMonth3)
+	countIdMonth(seenNewsMonth4)
+	countIdMonth(seenNewsMonth5)
+	countIdMonth(seenNewsMonth6)
+	countIdMonth(seenNewsMonth7)
+	countIdMonth(seenNewsMonth8)
+	countIdMonth(seenNewsMonth9)
+	countIdMonth(seenNewsMonth10)
+	countIdMonth(seenNewsMonth11)
+	countIdMonth(seenNewsMonth12)
+
+	async function countIdMonth(seenNewsMonth) {
+		var countMonth = {}
+		for (element of seenNewsMonth) {
+		  countMonth[element.id] = (countMonth[element.id] || 0) + 1
+		}
+		// sap xep key theo thu tu tang dan
+		keysSorted = Object.keys(countMonth).sort(function(a, b) {
+	      return countMonth[b] - countMonth[a]
+	    })
+
+	    // for (element of keysSorted) {
+	    // 	var data = await Tinmoi.findOne({id: element})
+	    // 	if (data) {
+		   //  	dataSeenNews[index] = data
+	    // 	} else {
+	    // 		dataSeenNews[index] = {}
+	    // 	}
+	    // }
+
+		allSeenNews.push(countMonth)
+	}
+
+	var allSeenNewsSorted = sortKey(JSON.stringify(allSeenNews))
+	function sortKey(allSeenNews) {
+		var tempSorted = JSON.parse(allSeenNews)
+		for (var i = 0; i < tempSorted.length; i ++) {
+			if (Object.keys(tempSorted[i]).length !== 0) {
+				tempSorted[i] = Object.keys(tempSorted[i]).sort(function(a, b) {
+			      return tempSorted[i][b] - tempSorted[i][a]
+			    })
+			}
+		}
+		return tempSorted
+	}
+
+	// dùng async function thì phải sử lí bất đồng bộ bằng cách dùng function như tham số
+	var tempArr = async function (dataSeenNews) {
+		for (var i = 0; i < allSeenNewsSorted.length; i ++) {
+			if (Object.keys(allSeenNewsSorted[i]).length !== 0) {
+				var data = []
+				for (elemt of allSeenNewsSorted[i]) {
+					data.push(await Tinmoi.findOne({id: elemt}))
+				}
+				dataSeenNews[i] = data
+			} else {
+				dataSeenNews[i] = {}
+			}
+		}
+		return dataSeenNews
+
+	}
+
+
+
+
+
+
+
+
+	// console.log(await tempArr(dataSeenNews))
+	// console.log(allSeenNewsSorted)
+	console.log(allComment[6][1])
 	res.render("thongke/index.pug", {
 		sessionMonth1: sessionMonth1,
 		sessionMonth2: sessionMonth2,
@@ -304,6 +476,10 @@ module.exports.getStatistic = async function (req, res) {
 
 		allComment: allComment,
 
-		allChinhsua: allChinhsua
+		allChinhsua: allChinhsua,
+
+		allSeenNews: allSeenNews,
+
+		dataSeenNews: await tempArr(dataSeenNews)
 	})
 }

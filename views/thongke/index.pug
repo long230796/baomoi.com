@@ -9,6 +9,7 @@ block content
 					a.dropdown-item(href='#soluongbaiviet') Số lượng bài viết mỗi tháng
 					a.dropdown-item(href='#theloaitruycap') Thể loại được truy cập
 					a.dropdown-item(href='#binhluanvachinhsua') Lược bình luận và chỉnh sửa
+					a.dropdown-item(href='#xemnhieunhat') Bài viết được xem nhiều nhất
 					.dropdown-divider
 					button.btn.btn-outline-default.waves-effect(type='button' id='but_screenshot' value='Take screenshot' onclick='screenshot()')
 						| Xuất file
@@ -322,6 +323,15 @@ block content
 					hr
 
 
+
+
+
+
+
+
+
+
+
 				// so luong comment trong 1 thang
 				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 					h3.mt-4.pl-3#binhluanvachinhsua(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THỐNG KÊ SỐ LƯỢNG BÌNH LUẬN VÀ CHỈNH SỬA
@@ -331,42 +341,326 @@ block content
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth1
-					input.d-none#allcommentMonth1(type=text, value=allComment[1])
+					input.d-none#allcommentMonth1(type=text, value=allComment)
 					hr
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[1].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[1]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[1].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[1])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[1].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[1]
+									tr
+										th(scope='row')= allChinhsua[1].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 				if (allComment[2])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth2
-					input.d-none#allcommentMonth2(type=text, value=allComment[2])
+					input.d-none#allcommentMonth2(type=text, value=allComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[2].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[2]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[2].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[2])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[2].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[2]
+									tr
+										th(scope='row')= allChinhsua[2].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 				if (allComment[3])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth3
-					input.d-none#allcommentMonth3(type=text, value=allComment[3])
+					input.d-none#allcommentMonth3(type=text, value=allComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[3].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[3]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[3].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[3])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[3].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[3]
+									tr
+										th(scope='row')= allChinhsua[3].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 				if (allComment[4])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth4
-					input.d-none#allcommentMonth4(type=text, value=allComment[4])
+					input.d-none#allcommentMonth4(type=text, value=allComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[4].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[4]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[4].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[4])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[4].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[4]
+									tr
+										th(scope='row')= allChinhsua[4].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 				if (allComment[5])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth5
-					input.d-none#allcommentMonth5(type=text, value=allComment[5])
+					input.d-none#allcommentMonth5(type=text, value=allComment)
 					hr
-					if (allChinhsua[6])
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[5].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[5]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[5].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+					if (allChinhsua[5])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[5].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[5]
+									tr
+										th(scope='row')= allChinhsua[5].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 				if (allComment[6])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
@@ -380,7 +674,7 @@ block content
 
 					// thong tin comment
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-						h5.mt-4.pl-3.ml-3 +) Thông tin đã bình luận
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[6].length + " Bình luận)"
 					table.table
 						thead(style="background-color: #c3e6cb")
 							tr
@@ -393,26 +687,27 @@ block content
 								th(scope='col') Chi tiết
 						tbody(style="background-color: #eee")
 							each comment in allComment[6]
-								tr
-									th(scope='row')= allComment[6].indexOf(comment)
-									td= comment.date
-									td= comment.time
-									td= comment.name
-									td= comment.email
-									td= comment.comment
-									td
-										button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
-										.dropdown-menu
-											a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
-											//- a.dropdown-item(href='#') Another action
-											//- a.dropdown-item(href='#') Something else here
-											//- .dropdown-divider
-											//- a.dropdown-item(href='#') Separated link
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[6].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 
 					if (allChinhsua[6])
 						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
-							h5.mt-4.pl-3.ml-3 +) Thông tin đã chỉnh sửa
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[6].length + " Chỉnh sửa)"
 						table.table
 							thead(style="background-color: #c3e6cb")
 								tr
@@ -446,34 +741,262 @@ block content
 					canvas#chartAllcommentMonth7
 					input.d-none#allcommentMonth7(type=text, value=allComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[7].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[7]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[7].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[7])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[7].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[7]
+									tr
+										th(scope='row')= allChinhsua[7].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 				if (allComment[8])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth8
-					input.d-none#allcommentMonth8(type=text, value=allComment[8])
+					input.d-none#allcommentMonth8(type=text, value=allComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[8].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[8]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[8].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[8])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[8].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[8]
+									tr
+										th(scope='row')= allChinhsua[8].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 				if (allComment[9])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth9
-					input.d-none#allcommentMonth9(type=text, value=allComment[9])
+					input.d-none#allcommentMonth9(type=text, value=allComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[9].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[9]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[9].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[9])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[9].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[9]
+									tr
+										th(scope='row')= allChinhsua[9].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 				if (allComment[10])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth10
-					input.d-none#allcommentMonth10(type=text, value=alComment[10])
+					input.d-none#allcommentMonth10(type=text, value=alComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[10].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[10]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[10].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[10])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[10].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[10]
+									tr
+										th(scope='row')= allChinhsua[10].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 
 				if (allComment[11])
@@ -481,18 +1004,700 @@ block content
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth11
-					input.d-none#allcommentMonth11(type=text, value=alComment[11])
+					input.d-none#allcommentMonth11(type=text, value=alComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[11].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[11]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[11].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[11])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[11].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[11]
+									tr
+										th(scope='row')= allChinhsua[11].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 				if (allComment[12])
 					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
 						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
 							i.fas.fa-fire-alt.ml-3 
 					canvas#chartAllcommentMonth12
-					input.d-none#allcommentMonth12(type=text, value=alComment[12])
+					input.d-none#allcommentMonth12(type=text, value=alComment)
 					hr
+
+					// thong tin comment
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h5.mt-4.pl-3.ml-3="+)Thông tin đã bình luận (" + allComment[12].length + " Bình luận)"
+					table.table
+						thead(style="background-color: #c3e6cb")
+							tr
+								th(scope='col') #
+								th(scope='col') Ngày
+								th(scope='col') Giờ
+								th(scope='col') Tên
+								th(scope='col') Email
+								th(scope='col') Nội dung bình luận
+								th(scope='col') Chi tiết
+						tbody(style="background-color: #eee")
+							each comment in allComment[12]
+								if (comment.newsId)
+									tr
+										th(scope='row')= allComment[12].indexOf(comment)
+										td= comment.date
+										td= comment.time
+										td= comment.name
+										td= comment.email
+										td= comment.comment
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+comment.theloai+"/news/"+comment.newsId) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 					if (allChinhsua[12])
+						a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3="+)Thông tin đã chỉnh sửa (" + allChinhsua[12].length + " Chỉnh sửa)"
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Ngày
+									th(scope='col') Giờ
+									th(scope='col') Người chỉnh sửa
+									th(scope='col') Chi tiết
+							tbody(style="background-color: #eee")
+								each chinhsua in allChinhsua[12]
+									tr
+										th(scope='row')= allChinhsua[12].indexOf(chinhsua)
+										td= chinhsua.thoigianchinhsua.slice(0, 15)
+										td= chinhsua.thoigianchinhsua.slice(15, 29)
+										td= chinhsua.thoigianchinhsua.slice(44)
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+chinhsua.theloai+"/news/"+chinhsua.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				// THÔNG KÊ 10 BÀI VIẾT ĐƯỢC XEM NHIỀU NHẤT
+				a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+					h3.mt-4.pl-3#xemnhieunhat(style="border-left: 3px solid #db562b; background-color: #e9e5e5") THÔNG KÊ 10 BÀI VIẾT ĐƯỢC XEM NHIỀU NHẤT
+						i.fas.fa-chart-area.ml-3
+
+				if (Object.keys(allSeenNews[0]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 1
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth1
+					input.d-none#allSeenNewsMonth1(type=text, value=allSeenNews[0])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[0]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[0].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+				if (Object.keys(allSeenNews[1]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 2
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth2
+					input.d-none#allSeenNewsMonth2(type=text, value=allSeenNews[1])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[1]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[1].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+
+				if (Object.keys(allSeenNews[2]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 3
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth3
+					input.d-none#allSeenNewsMonth3(type=text, value=allSeenNews[2])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[2]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[2].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+
+				if (Object.keys(allSeenNews[3]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 4
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth4
+					input.d-none#allSeenNewsMonth4(type=text, value=allSeenNews[3])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[3]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[3].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+				if (Object.keys(allSeenNews[4]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 5
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth5
+					input.d-none#allSeenNewsMonth5(type=text, value=allSeenNews[4])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[4]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[4].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+				if (Object.keys(allSeenNews[5]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 6
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth6
+					input.d-none#allSeenNewsMonth6(type=text, value=allSeenNews[5])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[5]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[5].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+
+				if (Object.keys(allSeenNews[6]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 7
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth7
+					input.d-none#allSeenNewsMonth7(type=text, value=allSeenNews[6])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[6]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[6].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+
+
+
+
+				if (Object.keys(allSeenNews[7]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 8
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth8
+					input.d-none#allSeenNewsMonth8(type=text, value=allSeenNews[7])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[7]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[7].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+				if (Object.keys(allSeenNews[8]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 9
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth9
+					input.d-none#allSeenNewsMonth9(type=text, value=allSeenNews[8])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[8]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[8].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+
+
+				if (Object.keys(allSeenNews[9]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 10
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth10
+					input.d-none#allSeenNewsMonth10(type=text, value=allSeenNews[9])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[9]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[9].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+
+
+
+				if (Object.keys(allSeenNews[10]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 11
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth11
+					input.d-none#allSeenNewsMonth11(type=text, value=allSeenNews[10])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[10]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[10].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
+
+
+
+				if (Object.keys(allSeenNews[11]).length !== 0)
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: none", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+						h3.mt-4.pl-3(style="border-left: 3px solid #db562b;") THÁNG 12
+							i.fas.fa-fire-alt.ml-3 
+
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) Biểu đồ tổng quát
+
+					canvas#chartAllSeenNewsMonth12
+					input.d-none#allSeenNewsMonth12(type=text, value=allSeenNews[11])
+					hr
+					// Thông tin chi tiết
+					a(href="#", style="text-decoration-none; color: #db562b; text-decoration: underline", onmouseover="this.style.color='#2fa1b3'", onmouseout="this.style.color='#db562b'") 
+							h5.mt-4.pl-3.ml-3 +) thông tin chi tiết
+					.tableDataSeenNews
+						table.table
+							thead(style="background-color: #c3e6cb")
+								tr
+									th(scope='col') #
+									th(scope='col') Tiêu đề
+									th(scope='col') ngày đăng
+									th(scope='col') Thời gian
+									th(scope='col') Id
+									th(scope='col') Thể loại
+									th(scope='col') Link bài viết
+							tbody(style="background-color: #eee")
+								each data in dataSeenNews[11]
+									tr
+										th(scope='row')= "Bài viết " + (dataSeenNews[11].indexOf(data) + 1)
+										td= data.title
+										td= data.ngaythang
+										td= data.thoigian
+										td= data.id
+										td= data.theloai
+										td
+											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+											.dropdown-menu
+												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+												//- a.dropdown-item(href='#') Another action
+												//- a.dropdown-item(href='#') Something else here
+												//- .dropdown-divider
+												//- a.dropdown-item(href='#') Separated link
 
 
 
@@ -521,6 +1726,8 @@ block content
 	script(type='text/javascript', src='MDB-free/js/mdb.min.js')
 	// Your custom scripts (optional)
 	script(type='text/javascript', src='MDB-free/js/chart.js')
+
+	script(type='text/javascript', src='MDB-free/js/horizontalBar.js')
 
 	script(type='text/javascript', src='html2canvas-master/dist/html2canvas.js')
 

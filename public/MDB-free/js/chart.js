@@ -216,36 +216,44 @@ function chart(counts, canvasId) {
 
 	if (canvasId.indexOf("Allcomment") !== -1) {
 		var labels = []
+		var tempData1 = []
 		var data1 = []
 		var data2 = [];
+		var getMonth = canvasId[canvasId.length-1]
 		countComment = {}
-		for (count in counts) {
+		for (count of counts[getMonth]) {
 			// dem cac ptu trung nhau cua mang
-			if (count !== "ngaychinhsua") {
-				for (arr of counts[count]) {
-					countComment[arr.date] = (countComment[arr.date] || 0) + 1
-				}
+			if (count.newsId) {
+				
+				countComment[count.date] = (countComment[count.date] || 0) + 1
+				
 
 			}
 		}
 		// đẩy ngày comment vào labels
 		for (key in countComment) {
 			labels.push(key)
-			data1.push(countComment[key])
+			tempData1.push(key+"-"+countComment[key])
 		}
 
 		// sap xep ngay chinh sua theo tăng dần
 		var tempArr = []
-		for (key in counts.ngaychinhsua) {
-			if (key !== "time") {
-				tempArr.push(key+"-"+counts.ngaychinhsua[key])
-				
-				// sap xep ngay theo thu tu tang dan
-				tempArr.sort(function (a, b) {
-					var date1 = a.split("/")[0]
-					var date2 = b.split("/")[0]
-					return date1 - date2
-				})
+		for (element of counts[getMonth]) {
+			if (element.ngaychinhsua) {
+				for (key in element.ngaychinhsua) {
+					if (key !== "time") {
+						tempArr.push(key+"-"+element.ngaychinhsua[key])
+						
+						// sap xep ngay theo thu tu tang dan
+						tempArr.sort(function (a, b) {
+							var date1 = a.split("/")[0]
+							var date2 = b.split("/")[0]
+							return date1 - date2
+						})
+
+					}
+
+				}
 
 			}
 		}
@@ -253,7 +261,7 @@ function chart(counts, canvasId) {
 		//đẩy ngày chỉnh sửa vào labels
 		for (element of tempArr) {
 			labels.push(element.split("-")[0])
-			data2.push(JSON.parse(element.split("-")[1]))
+			// data2.push(JSON.parse(element.split("-")[1]))
 			
 		}
 
@@ -261,17 +269,27 @@ function chart(counts, canvasId) {
 		labels = labels.filter(function (item, index) {
 		    return labels.indexOf(item) === index;
 		});
-		// sap xep ngay theo thu tu tang dan
-		// labels.sort(function (a, b) {
-		// 	var date1 = a.split("/")[0]
-		// 	var date2 = b.split("/")[0]
-		// 	return date1 - date2
-		// })
-		// console.log("counts",counts)
-		// console.log("countComment", countComment)
-		// console.log("labels", labels)
-		// console.log("data1", data1)
-		// console.log("data2", data2)
+		
+		for (element of labels) {
+			var foundData2 = tempArr.find(function (item) {
+				return element.split("/")[0] == item.split("/")[0]
+			})
+			var foundData1 = tempData1.find(function (item) {
+				return element.split("/")[0] == item.split("/")[0]
+			})
+
+			if (foundData1) {
+				data1.push(JSON.parse(foundData1.split("-")[1]))
+			} else {
+				data1.push(0)
+			}
+
+			if (foundData2) {
+				data2.push(JSON.parse(foundData2.split("-")[1]))
+			} else {
+				data2.push(0)
+			}
+		}
 		
 
 		var ctxL = document.getElementById(canvasId).getContext('2d');
@@ -312,6 +330,7 @@ function chart(counts, canvasId) {
 			        fontSize: 20
 			      }
 			    },
+			 
 		    }
 
 		});

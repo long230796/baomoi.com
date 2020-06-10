@@ -65,11 +65,11 @@ module.exports.createNews = async function (req, res) {
 module.exports.postNews = async function(req, res) {
 	var	imagePath 
 	var	videoPath
-	// create date time in this time
+	// tạo thời gian
 	var d = new Date();
 	var date = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
 	var time = d.getHours() + ":" + d.getMinutes();
-	// get file of front-end
+	// kiểm tra file được người dùng nhập vào
 	var uploads = req.files;
 	for (var upload of uploads ) {
 		if (upload.mimetype == "video/mp4") {
@@ -78,7 +78,7 @@ module.exports.postNews = async function(req, res) {
 			imagePath = upload.path.split('/').slice(1).join('/')  // cu phap gan image, file
 		}
 	}
-	// get value of req.body
+	// lấy dữ liệu tạo form nhập
 	var ID  = "5ed51a3a31739358f02d0178"
 	var title = req.body.title;
 	var content = req.body.content;
@@ -97,8 +97,9 @@ module.exports.postNews = async function(req, res) {
 	var news = await Theloai.findOne({ _id: ID });  
 	var tableTinmoi = await Tinmoi.find();
 	//double linked list
-
-	function DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source) {
+	// danh sách liên kết có 3 phần
+	// 1 node chứa dữ liệu
+	function DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua) {
 		this.id = shortid
 		this.title = title;
 		this.content = content;
@@ -112,10 +113,11 @@ module.exports.postNews = async function(req, res) {
 		this.ngaythang = ngaythang;
 		this.comment = comment;
 		this.source = source;
+		this.chinhsua = chinhsua;
 		this.next = null;
 		this.prev = null;
 	}
-
+	// dslk
 	function DoublyLinkedList() {
 		this.head = null;
 		this.tail = null;
@@ -127,13 +129,14 @@ module.exports.postNews = async function(req, res) {
 		return this.size == 0;
 	}
 
-	DoublyLinkedList.prototype.addFirst = function (title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source) {
+	// các hàm thao tác trên dslk
+	DoublyLinkedList.prototype.addFirst = function (title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua) {
 
 		if (this.head === null) {
-			this.head = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source);
+			this.head = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua);
 			this.tail = this.head;
 		} else {
-			var temp = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source);
+			var temp = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua);
 			temp.next = this.head;
 			this.head.prev = temp;
 			this.head = temp;
@@ -142,12 +145,12 @@ module.exports.postNews = async function(req, res) {
 
 	}
 
-	DoublyLinkedList.prototype.addLast = function (title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source) {
+	DoublyLinkedList.prototype.addLast = function (title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua) {
 		if (this.tail === null) {
-			this.tail = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source);
+			this.tail = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua);
 			this.head = this.tail;
 		} else {
-			var temp = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source);
+			var temp = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua);
 			this.tail.next = temp;
 			temp.prev = this.tail;
 			this.tail = temp;
@@ -157,9 +160,9 @@ module.exports.postNews = async function(req, res) {
 
 
 
-	DoublyLinkedList.prototype.addLastTheloai = function (title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source) {
+	DoublyLinkedList.prototype.addLastTheloai = function (title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua) {
 		if (this.tail === null) {
-			this.tail = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source);
+			this.tail = new DoublyLinkedListNode(title, content, shortid, hashtag, imagePath, videoPath, theloai, firstNews, trangthai, thoigian, ngaythang, comment, source, chinhsua);
 			this.head = this.tail;
 			// thêm dữ liệu vào đúng table
 			switch (this.head.theloai) {
@@ -339,15 +342,17 @@ module.exports.postNews = async function(req, res) {
 		this.size++;
 	}
 
-	//kiể tra file nếu là ảnh thì video=null và ngược lai
 	var listTheloai = new DoublyLinkedList()
 	var listTinmoi = new DoublyLinkedList()
 
+
+
+	//kiể tra file nếu là ảnh thì video=null và ngược lai
 	if (imagePath) {
 		// them vao table Theloai
 		listTheloai.addLastTheloai(title, content, newsId, hashtag, imagePath, null, theloai, firstNews, trangthai, time, date, "", source)
 
-		// them vao table Tinmoi
+
 		// nếu không có dữ liệu trong db thì tạo mới
 		if (!tableTinmoi[0]) {
 
@@ -364,12 +369,13 @@ module.exports.postNews = async function(req, res) {
 				thoigian: time,
 				ngaythang: date,
 				source: source,
-				comment: []
+				comment: [],
+				chinhsua: []
 			})
 			tableTinmoi.save();
 
 		} else {
-			// lấy từ db và lưu vào dslk đôi
+			// nếu có thì lấy trong database lưu vào dslk đôi
 			for (var i = 0; i < tableTinmoi.length; i ++) {
 				var item = tableTinmoi[i]
 				listTinmoi.addLast(
@@ -385,11 +391,16 @@ module.exports.postNews = async function(req, res) {
 					item.thoigian, 
 					item.ngaythang,
 					item.comment,
-					item.source
+					item.source,
+					item.chinhsua
 				)
 			}
-			// delete all document when copied 
+			
+			// sau khi lưu vào dslk thì xóa trong database
 			await Tinmoi.deleteMany({});  // cu phap drop collection
+
+
+
 			// lưu vào dslk xong thì thêm vào đầu dslk đôi,
 			listTinmoi.addFirst(
 				title, 
@@ -404,10 +415,13 @@ module.exports.postNews = async function(req, res) {
 				time, 
 				date,
 				[],
-				source
+				source,
+				[]
 			)
 
-			// llưu từ dslk về lại tableTinmoi
+
+
+			// llưu từ dslk về lại database
 			for (var node = listTinmoi.head; node != null; node = node.next) {   // cú pháp lặp qua dslk
 					var object = {
 						id: node.id,
@@ -422,7 +436,8 @@ module.exports.postNews = async function(req, res) {
 						thoigian: node.thoigian,
 						ngaythang: node.ngaythang,
 						comment: node.comment,
-						source: node.source
+						source: node.source,
+						chinhsua: node.chinhsua
 					}
 
 					
@@ -433,6 +448,8 @@ module.exports.postNews = async function(req, res) {
 		}
 		
 	}
+
+	// tương tự như trên, thay imagePath = null
 	if (videoPath) {
 		//them vao table Theloai
 		listTheloai.addLastTheloai(title, content, shortid, hashtag, null, videoPath, theloai, firstNews, trangthai, time, date, "", source)
@@ -452,7 +469,8 @@ module.exports.postNews = async function(req, res) {
 				thoigian: time,
 				ngaythang: date,
 				comment: [],
-				source: source
+				source: source,
+				chinhsua: []
 			})
 			tableTinmoi.save();
 		} else {
@@ -472,7 +490,8 @@ module.exports.postNews = async function(req, res) {
 					item.thoigian, 
 					item.ngaythang,
 					item.comment,
-					item.source
+					item.source,
+					item.chinhsua
 				)
 			}
 			await Tinmoi.deleteMany({});
@@ -491,7 +510,8 @@ module.exports.postNews = async function(req, res) {
 				time, 
 				date,
 				[],
-				source
+				source,
+				[]
 			)
 
 			// llưu từ dslk về lại tableTinmoi sau đó save
@@ -509,7 +529,8 @@ module.exports.postNews = async function(req, res) {
 						thoigian: node.thoigian,
 						ngaythang: node.ngaythang,
 						comment: node.comment,
-						source: node.source
+						source: node.source,
+						chinhsua: node.chinhsua
 					}
 
 					tableTinmoi = new Tinmoi(object)
