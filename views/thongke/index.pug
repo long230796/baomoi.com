@@ -1186,9 +1186,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[0]
+								each data in dataHadSeen[0]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[0].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[0].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1229,9 +1229,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[1]
+								each data in dataHadSeen[1]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[1].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[1].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1274,9 +1274,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[2]
+								each data in dataHadSeen[2]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[2].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[2].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1319,9 +1319,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[3]
+								each data in dataHadSeen[3]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[3].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[3].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1363,9 +1363,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[4]
+								each data in dataHadSeen[4]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[4].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[4].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1407,22 +1407,23 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[5]
-									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[5].indexOf(data) + 1)
-										td= data.title
-										td= data.ngaythang
-										td= data.thoigian
-										td= data.id
-										td= data.theloai
-										td
-											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
-											.dropdown-menu
-												a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
-												//- a.dropdown-item(href='#') Another action
-												//- a.dropdown-item(href='#') Something else here
-												//- .dropdown-divider
-												//- a.dropdown-item(href='#') Separated link
+								each data in dataHadSeen[5]
+									if (data)
+										tr
+											th(scope='row')= "Bài viết " + (dataHadSeen[5].indexOf(data) + 1)
+											td= data.title
+											td= data.ngaythang
+											td= data.thoigian
+											td= data.id
+											td= data.theloai
+											td
+												button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
+												.dropdown-menu
+													a.dropdown-item(href='/'+data.theloai+"/news/"+data.id) link bài viết
+													//- a.dropdown-item(href='#') Another action
+													//- a.dropdown-item(href='#') Something else here
+													//- .dropdown-divider
+													//- a.dropdown-item(href='#') Separated link
 
 
 
@@ -1452,9 +1453,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[6]
+								each data in dataHadSeen[6]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[6].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[6].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1500,9 +1501,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[7]
+								each data in dataHadSeen[7]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[7].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[7].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1544,9 +1545,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[8]
+								each data in dataHadSeen[8]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[8].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[8].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1590,9 +1591,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[9]
+								each data in dataHadSeen[9]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[9].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[9].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1637,9 +1638,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[10]
+								each data in dataHadSeen[10]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[10].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[10].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian
@@ -1682,9 +1683,9 @@ block content
 									th(scope='col') Thể loại
 									th(scope='col') Link bài viết
 							tbody(style="background-color: #eee")
-								each data in dataSeenNews[11]
+								each data in dataHadSeen[11]
 									tr
-										th(scope='row')= "Bài viết " + (dataSeenNews[11].indexOf(data) + 1)
+										th(scope='row')= "Bài viết " + (dataHadSeen[11].indexOf(data) + 1)
 										td= data.title
 										td= data.ngaythang
 										td= data.thoigian

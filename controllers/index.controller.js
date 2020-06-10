@@ -503,8 +503,7 @@ module.exports.updateNews = async function (req, res) {
 						tableTheloai[theloaihientai][i].theloai = node.theloai
 						tableTheloai[theloaihientai][i].firstNews = node.firstNews
 						tableTheloai[theloaihientai][i].trangthai = node.trangthai
-						tableTheloai[theloaihientai][i].source = node.source
-						
+						tableTheloai[theloaihientai][i].source = node.source						
 						tableTheloai[theloaihientai][i].chinhsua.push(node.chinhsua)
 						tableTheloai.markModified(theloaihientai)  // xác định đúng thể loại can luu
 						tableTheloai.save()

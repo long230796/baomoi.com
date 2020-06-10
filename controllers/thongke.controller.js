@@ -392,17 +392,14 @@ module.exports.getStatistic = async function (req, res) {
 		keysSorted = Object.keys(countMonth).sort(function(a, b) {
 	      return countMonth[b] - countMonth[a]
 	    })
+		
+		const sliced = Object.keys(countMonth).slice(0, 10).reduce((result, key) => {
+		    result[key] = countMonth[key];
 
-	    // for (element of keysSorted) {
-	    // 	var data = await Tinmoi.findOne({id: element})
-	    // 	if (data) {
-		   //  	dataSeenNews[index] = data
-	    // 	} else {
-	    // 		dataSeenNews[index] = {}
-	    // 	}
-	    // }
+		    return result;
+		}, {});
 
-		allSeenNews.push(countMonth)
+		allSeenNews.push(sliced)
 	}
 
 	var allSeenNewsSorted = sortKey(JSON.stringify(allSeenNews))
@@ -413,6 +410,7 @@ module.exports.getStatistic = async function (req, res) {
 				tempSorted[i] = Object.keys(tempSorted[i]).sort(function(a, b) {
 			      return tempSorted[i][b] - tempSorted[i][a]
 			    })
+				tempSorted[i] = tempSorted[i].slice(0, 10)
 			}
 		}
 		return tempSorted
@@ -427,6 +425,7 @@ module.exports.getStatistic = async function (req, res) {
 					data.push(await Tinmoi.findOne({id: elemt}))
 				}
 				dataSeenNews[i] = data
+				// dataSeenNews[i] = dataSeenNews[i].slice(0, 10)
 			} else {
 				dataSeenNews[i] = {}
 			}
@@ -435,16 +434,15 @@ module.exports.getStatistic = async function (req, res) {
 
 	}
 
-
-
+	var dataNews = await tempArr(dataSeenNews)
 
 
 
 
 
 	// console.log(await tempArr(dataSeenNews))
-	// console.log(allSeenNewsSorted)
-	console.log(allComment[6][1])
+	console.log(allSeenNews)
+	// console.log(slice10.length)
 	res.render("thongke/index.pug", {
 		sessionMonth1: sessionMonth1,
 		sessionMonth2: sessionMonth2,
@@ -480,6 +478,6 @@ module.exports.getStatistic = async function (req, res) {
 
 		allSeenNews: allSeenNews,
 
-		dataSeenNews: await tempArr(dataSeenNews)
+		dataHadSeen: dataNews
 	})
 }
