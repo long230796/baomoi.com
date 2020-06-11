@@ -379,9 +379,9 @@ block content
 					.tinlienquan(style='display: flex; justify-content: center; background-color: #ef5350')
 						h4 TIN LIÊN QUAN 
 					if (tinlienquan[1])
-						image.tlq(src=tinlienquan[1].image style="height: 100px; width: 100%; border-radius: 0")
+						image.tlq(src=tinlienquan[1].image style="height: 200px; width: 100%; border-radius: 0")
 					else 
-						image.tlq(src=tinlienquan[0].image style="height: 100px; width: 100%; border-radius: 0")
+						image.tlq(src=tinlienquan[0].image style="height: 200px; width: 100%; border-radius: 0")
 					each tlq in tinlienquan
 						.content.tlq(style='background-color: #ffeeef;')
 							div(style='border-bottom: 1px solid #fad5d6; display: flex; align-items: center;')
@@ -392,9 +392,9 @@ block content
 				.tinmoi(style='display: flex; justify-content: center; background-color: #ef5350')
 					h4 TIN MOI 
 				if (allNews[1])
-					image.tinmoi(src=allNews[1].image style="height: 100px; width: 100%; border-radius: 0")
+					image.tinmoi(src=allNews[1].image style="height: 200px; width: 100%; border-radius: 0")
 				else 
-					image.tinmoi(src=allNews[0].image style="height: 100px; width: 100%; border-radius: 0")
+					image.tinmoi(src=allNews[0].image style="height: 200px; width: 100%; border-radius: 0")
 				each allNew in allNews
 					.content.tinmoi(style='background-color: #ffeeef;')
 						div(style='border-bottom: 1px solid #fad5d6; display: flex; align-items: center;')
@@ -405,18 +405,18 @@ block content
 					h4 TIN XEM NHIỀU
 				if (baivietxemnhieu[1])
 					if (baivietxemnhieu[1].image)
-						image.tinmoi(src=baivietxemnhieu[1].image style="height: 100px; width: 100%; border-radius: 0")
+						image.tinmoi(src=baivietxemnhieu[1].image style="height: 200px; width: 100%; border-radius: 0")
 					else 
 						.video.mr-3(id="video-" + baivietxemnhieu[1].id)
-							video.embed-responsive(style="width: 100%; height: 100px; border-radius: 10px;", controls='')
+							video.embed-responsive(style="width: 100%; height: 200px; border-radius: 10px;", controls='')
 								source(src=baivietxemnhieu[1].video, type='video/mp4')
 								|Your browser does not support the video tag.	
 				else 
 					if (baivietxemnhieu[0].image)
-						image.tinmoi(src=baivietxemnhieu[0].image style="height: 100px; width: 100%; border-radius: 0")
+						image.tinmoi(src=baivietxemnhieu[0].image style="height: 200px; width: 100%; border-radius: 0")
 					else 
 						.video.mr-3(id="video-" + baivietxemnhieu[0].id)
-							video.embed-responsive(style="width: 100%; height: 100px; border-radius: 10px;", controls='')
+							video.embed-responsive(style="width: 100%; height: 200px; border-radius: 10px;", controls='')
 								source(src=baivietxemnhieu[0].video, type='video/mp4')
 								|Your browser does not support the video tag.	
 				each baiviet in baivietxemnhieu
