@@ -368,6 +368,7 @@ module.exports.getStatistic = async function (req, res) {
 	// })
 
 	var allSeenNews = []
+	var theNumberOfSeenNews = []
 	var dataSeenNews = []
 
 	countIdMonth(seenNewsMonth1)
@@ -383,6 +384,7 @@ module.exports.getStatistic = async function (req, res) {
 	countIdMonth(seenNewsMonth11)
 	countIdMonth(seenNewsMonth12)
 
+	// ssắp xếp bài viết, lọc ra số lần xem của bài viết
 	async function countIdMonth(seenNewsMonth) {
 		var countMonth = {}
 		for (element of seenNewsMonth) {
@@ -392,36 +394,52 @@ module.exports.getStatistic = async function (req, res) {
 		keysSorted = Object.keys(countMonth).sort(function(a, b) {
 	      return countMonth[b] - countMonth[a]
 	    })
-		
-		const sliced = Object.keys(countMonth).slice(0, 10).reduce((result, key) => {
-		    result[key] = countMonth[key];
+		// //slice object
+		// const sliced = Object.keys(keysSorted).slice(0, 10).reduce((result, key) => {
+		//     result[key] = countMonth[key];
 
-		    return result;
-		}, {});
+		//     return result;
+		// }, {});
 
+
+
+
+		// lọc ra số lần xem của 10 bài viết
+		var tempValue = []
+		if (keysSorted.length !== 0) {
+			for (element of keysSorted) {
+				tempValue.push(countMonth[element])
+			}
+			theNumberOfSeenNews.push(tempValue.slice(0, 10))
+		} else {
+			theNumberOfSeenNews.push([])
+		}
+
+		// lọc ra id của 10 bài viết 
+		var sliced = keysSorted.slice(0, 10)
 		allSeenNews.push(sliced)
 	}
 
-	var allSeenNewsSorted = sortKey(JSON.stringify(allSeenNews))
-	function sortKey(allSeenNews) {
-		var tempSorted = JSON.parse(allSeenNews)
-		for (var i = 0; i < tempSorted.length; i ++) {
-			if (Object.keys(tempSorted[i]).length !== 0) {
-				tempSorted[i] = Object.keys(tempSorted[i]).sort(function(a, b) {
-			      return tempSorted[i][b] - tempSorted[i][a]
-			    })
-				tempSorted[i] = tempSorted[i].slice(0, 10)
-			}
-		}
-		return tempSorted
-	}
+	// var allSeenNewsSorted = sortKey(JSON.stringify(allSeenNews))
+	// function sortKey(allSeenNews) {
+	// 	var tempSorted = JSON.parse(allSeenNews)
+	// 	for (var i = 0; i < tempSorted.length; i ++) {
+	// 		if (Object.keys(tempSorted[i]).length !== 0) {
+	// 			tempSorted[i] = Object.keys(tempSorted[i]).sort(function(a, b) {
+	// 		      return tempSorted[i][b] - tempSorted[i][a]
+	// 		    })
+	// 			tempSorted[i] = tempSorted[i].slice(0, 10)
+	// 		}
+	// 	}
+	// 	return tempSorted
+	// }
 
 	// dùng async function thì phải sử lí bất đồng bộ bằng cách dùng function như tham số
 	var tempArr = async function (dataSeenNews) {
-		for (var i = 0; i < allSeenNewsSorted.length; i ++) {
-			if (Object.keys(allSeenNewsSorted[i]).length !== 0) {
+		for (var i = 0; i < allSeenNews.length; i ++) {
+			if (Object.keys(allSeenNews[i]).length !== 0) {
 				var data = []
-				for (elemt of allSeenNewsSorted[i]) {
+				for (elemt of allSeenNews[i]) {
 					data.push(await Tinmoi.findOne({id: elemt}))
 				}
 				dataSeenNews[i] = data
@@ -441,7 +459,7 @@ module.exports.getStatistic = async function (req, res) {
 
 
 	// console.log(await tempArr(dataSeenNews))
-	console.log(allSeenNews)
+	// console.log(allSeenNews)
 	// console.log(slice10.length)
 	res.render("thongke/index.pug", {
 		sessionMonth1: sessionMonth1,
@@ -476,7 +494,7 @@ module.exports.getStatistic = async function (req, res) {
 
 		allChinhsua: allChinhsua,
 
-		allSeenNews: allSeenNews,
+		allSeenNews: theNumberOfSeenNews,
 
 		dataHadSeen: dataNews
 	})
