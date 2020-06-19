@@ -13,42 +13,143 @@ module.exports.getLogin = function(req, res) {
 }
 
 module.exports.postLogin = async function(req, res) {
+	// var name = req.body.name;
+	// var password = req.body.password;
+	// var admin = await Admin.findOne({ name: name})  // khi tìm đc thì admin tồn tại
+	// // console.log(req.body.name)
+
+	// if (!admin) {    // chưa tìm được
+	// 	res.render('admin/login', {
+	// 		errors: [
+	// 			'admin does not exist'
+	// 		],
+	// 		values: req.body  // lưu lại giá trị khi nhập
+	// 	});
+	// 	return;
+	// }
+
+	
+	// if (admin.password == password) {  // đã tìm được
+	// 	res.cookie('adminId', admin._id, {
+	// 		signed: true,
+	// 	}, {expires: new Date(5000 + Date.now())});
+	// 	res.redirect('/trangchu');
+	// 	return
+	// } 
+	
+	// res.render('admin/login', {
+	// 	errors: [
+	// 		'password incorrect'
+	// 	],
+	// 	values: req.body
+	// });
 	var name = req.body.name;
 	var password = req.body.password;
-	var admin = await Admin.findOne({ name: name})  // khi tìm đc thì admin tồn tại
 	// console.log(req.body.name)
-
-	if (!admin) {    // chưa tìm được
-		res.render('admin/login', {
-			errors: [
-				'admin does not exist'
-			],
-			values: req.body  // lưu lại giá trị khi nhập
-		});
-		return;
+	function DoublyLinkedListNode(name, password) {
+		this.name = name;
+		this.password = password;
+		this.next = null;
+		this.prev = null;
 	}
 
-	
-	if (admin.password == password) {  // đã tìm được
-		res.cookie('adminId', admin._id, {
-			signed: true,
-		}, {expires: new Date(5000 + Date.now())});
-		res.redirect('/trangchu');
-		return
-	} 	
-	
-	res.render('admin/login', {
-		errors: [
-			'password incorrect'
-		],
-		values: req.body
-	});
+	function DoublyLinkedList() {
+		this.head = null;
+		this.tail = null;
+		this.size = 0;
+	}
+
+	DoublyLinkedList.prototype.isEmpty = function() {
+		return this.size == 0;
+	}
+
+	DoublyLinkedList.prototype.addLast = function (name, password) {
+		if (this.tail === null) {
+			this.tail = new DoublyLinkedListNode(name, password);
+			this.head = this.tail;
+		}
+	}
+
+	var list = new DoublyLinkedList()
+	list.addLast(name, password)
+
+	for (var node = list.head; node != null; node = node.next) {
+		var adminName = await Admin.findOne({name: node.name})
+		
+		if (!adminName) {    // chưa tìm được
+			res.render('admin/login', {
+				errors: [
+					'admin does not exist'
+				],
+				values: req.body  // lưu lại giá trị khi nhập
+			});
+			return;
+		}
+
+		
+		if (adminName.password == password) {  // đã tìm được
+			res.cookie('adminId', adminName._id, {
+				signed: true,
+			}, {expires: new Date(5000 + Date.now())});
+			res.redirect('/trangchu');
+			return
+		} 	
+		
+		res.render('admin/login', {
+			errors: [
+				'password incorrect'
+			],
+			values: req.body
+		});
+			
+	}
 
 }
 
 module.exports.getLogout = function (req, res) {
-	  res.clearCookie("adminId", {path: '/'})
-	  res.redirect("/trangchu")
+	  // res.clearCookie("adminId", {path: '/'})
+	  // res.redirect("/trangchu")
+
+	var idName = "adminId"
+	function DoublyLinkedListNode(idName) {
+		this.adminId = idName	;
+		this.next = null;
+		this.prev = null;
+	}
+	function DoublyLinkedList() {
+		this.head = null;
+		this.tail = null;
+		this.size = 0;
+	}
+
+	DoublyLinkedList.prototype.isEmpty = function() {
+		return this.size == 0;
+	}
+	DoublyLinkedList.prototype.addFirst = function (idName) {
+		if (this.head === null) {
+			this.head = new DoublyLinkedListNode(idName)
+			this.tail = this.head;
+		} else {
+			var temp = new DoublyLinkedListNode(idName)
+			temp.next = this.head;
+			this.head.prev = temp;
+			this.head = temp;
+		}
+		this.size++;
+
+	}
+
+	var listcookie = new DoublyLinkedList()
+	listcookie.addFirst(idName)
+
+	
+	for (var node = listcookie.head; node != null; node = node.next) { 
+		res.clearCookie(node.adminId, {path: '/'})
+		res.redirect("/trangchu")
+		return;
+	}
+	// res.clearCookie("adminId", {path: '/'})
+	// res.redirect("/trangchu")
 }
 
 module.exports.createNews = async function (req, res) {
