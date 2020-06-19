@@ -63,7 +63,7 @@ module.exports.getIndex = async function (req, res) {
 	globalBaivietxemnhieu = baivietxemnhieu
 	// console.log(keysSorted)
 
-	console.log(baivietxemnhieu)
+	// console.log(baivietxemnhieu)
 
 
 	res.render('index', {

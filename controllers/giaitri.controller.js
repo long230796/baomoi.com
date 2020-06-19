@@ -7,7 +7,7 @@ module.exports.getIndex = async function (req, res) {
 	var tinmoi = await Tinmoi.find();
 	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
 	res.render('theloai/giaitri.pug', {
-		tinmois: tinmoi,
-		theloais: theloai
+		tinmois: tinmoi,  // node.tinmoi
+		theloais: theloai  // node.theloai
 	})
 }

@@ -15,27 +15,27 @@ module.exports.getLogin = function(req, res) {
 module.exports.postLogin = async function(req, res) {
 	var name = req.body.name;
 	var password = req.body.password;
-	var admin = await Admin.findOne({ name: name})
+	var admin = await Admin.findOne({ name: name})  // khi tìm đc thì admin tồn tại
 	// console.log(req.body.name)
 
-	if (!admin) {
+	if (!admin) {    // chưa tìm được
 		res.render('admin/login', {
 			errors: [
 				'admin does not exist'
 			],
-			values: req.body
+			values: req.body  // lưu lại giá trị khi nhập
 		});
 		return;
 	}
 
 	
-	if (admin.password == password) {
+	if (admin.password == password) {  // đã tìm được
 		res.cookie('adminId', admin._id, {
 			signed: true,
 		}, {expires: new Date(5000 + Date.now())});
 		res.redirect('/trangchu');
 		return
-	} 
+	} 	
 	
 	res.render('admin/login', {
 		errors: [
@@ -47,7 +47,7 @@ module.exports.postLogin = async function(req, res) {
 }
 
 module.exports.getLogout = function (req, res) {
-	  res.clearCookie("userId", {path: '/'})
+	  res.clearCookie("adminId", {path: '/'})
 	  res.redirect("/trangchu")
 }
 

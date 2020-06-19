@@ -119,13 +119,13 @@ html
        option(value="thegioi") Thế giới
        option(value="phapluat") Pháp luật
     // tin hot
-    input#check.check.ml-2(type='checkbox', name='firstNews', value='true')
-    label(for='check')  Xuất hiện ở đầu bản tin
+    input#check1.check.ml-2(type='checkbox', name='firstNews', value='true')
+    label(for='check1')  Xuất hiện ở đầu bản tin
     br
     // trang thai xuat bang
     .mb-2.font-weight-bold
-     span Trạng thái xuất bản
-     select.ml-2.trangthai.custom-select(name="trangthai" style="width: 15%")
+     //- span Trạng thái xuất bản
+     select.ml-2.trangthai.custom-select.d-none(name="trangthai" style="width: 15%")
        option(value="congkhai") Công khai
        option(value="riengtu") Riêng tư
     button.add-btn.btn.btn-primary.mb-3.mr-2( type='button' onclick="scriptAddNews()") ĐĂNG BÀI
@@ -185,13 +185,13 @@ html
        option(value="thegioi") Thế giới
        option(value="phapluat") Pháp luật
     // tin hot
-    input#check.check.ml-2(type='checkbox', name='firstNews', value='true')
-    label(for='check')  Xuất hiện ở đầu bản tin
+    input#check2.check.ml-2(type='checkbox', name='firstNews', value='true')
+    label(for='check2')  Xuất hiện ở đầu bản tin
     br
     // trang thai xuat bang
     .mb-2.font-weight-bold
-     span Trạng thái xuất bản
-     select.ml-2.trangthai.custom-select(name="trangthai" style="width: 15%")
+     //- span Trạng thái xuất bản
+     select.ml-2.trangthai.custom-select.d-none(name="trangthai" style="width: 15%")
        option(value="congkhai") Công khai
        option(value="riengtu") Riêng tư
     button.add-btn.btn.btn-primary.mb-3.mr-2( type='button' onclick="scriptAddNews()") ĐĂNG BÀI

@@ -715,6 +715,7 @@ block content
 									th(scope='col') Ngày
 									th(scope='col') Giờ
 									th(scope='col') Người chỉnh sửa
+									th(scope='col') id Bài Viết
 									th(scope='col') Chi tiết
 							tbody(style="background-color: #eee")
 								each chinhsua in allChinhsua[6]
@@ -723,6 +724,7 @@ block content
 										td= chinhsua.thoigianchinhsua.slice(0, 15)
 										td= chinhsua.thoigianchinhsua.slice(15, 29)
 										td= chinhsua.thoigianchinhsua.slice(44)
+										td= chinhsua.id
 										td
 											button.btn.btn-success.dropdown-toggle.m-0(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Thông tin chi tiết
 											.dropdown-menu
