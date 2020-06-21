@@ -269,6 +269,11 @@ function chart(counts, canvasId) {
 		labels = labels.filter(function (item, index) {
 		    return labels.indexOf(item) === index;
 		});
+
+		// sap xep theo ngay
+		var labels = labels.sort(function (a, b) {
+		  return a.split("/")[0] - b.split("/")[0]
+		})
 		
 		for (element of labels) {
 			var foundData2 = tempArr.find(function (item) {

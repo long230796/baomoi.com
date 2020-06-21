@@ -10,6 +10,7 @@ module.exports = function (req, res, next) {
 		var time = d.getHours() + ":" + d.getMinutes();
 
 		var sessionId = shortid.generate();
+
 		res.cookie('sessionId', sessionId, {
 			signed: true
 		});

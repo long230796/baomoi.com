@@ -8,12 +8,12 @@ block content
 				.alert.alert-danger= error
 
 		form.m-auto(action='/admin/login', method='POST', style="width: 50%")
-			h2 REGISTER
+			h2 ĐĂNG NHẬP 
 			.form-group
-				label(for='exampleInputEmail1') name
+				label(for='exampleInputEmail1') Tài khoản
 				input#exampleInputEmail1.form-control(type='text', aria-describedby='emailHelp', placeholder='Enter name', name='name', value=values ? values.name: '')
 			.form-group
-				label(for='exampleInputPassword1') Password
+				label(for='exampleInputPassword1') Mật khẩu
 				input#exampleInputPassword1.form-control(type='password', placeholder='Password', name='password', value=values ? values.password : '')
 
-			button.btn.btn-primary(type='submit') Submit	
+			button.btn.btn-primary(type='submit') Đăng nhập	

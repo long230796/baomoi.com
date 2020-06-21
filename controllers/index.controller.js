@@ -91,9 +91,46 @@ module.exports.getNews = async function (req, res) {
 	var tinlienquan = await Tinmoi.find({theloai: theloai})
 	var allNews = await Tinmoi.find({})
 	var session = await Session.findOne({sessionId: sessionId})
+	var sessionTable = await Session.find()
+
+
+
 	session.theloaidaxem.push(theloai)
 	session.baivietdaxem.push({id: id, date: date})
 	session.save()
+
+
+	// find baivietdaxem
+	var idBaivietdaxem = []
+	for (element of sessionTable) {
+		if (element.baivietdaxem[0]) {
+			for (item of element.baivietdaxem) {
+				idBaivietdaxem.push(item)
+			}
+		}
+	}
+
+	// dem so lan xuat hien cua id
+	var  countId = {};
+	for (element of idBaivietdaxem) {
+		countId[element.id] = (countId[element.id] || 0) + 1
+	}
+
+	// sap xep theo thu tu tang dan
+	keysSorted = Object.keys(countId).sort(function(a,b){
+	  return countId[b]-countId[a]
+	})
+
+	// tim kiem trong tableTinmoi va luu vao mang
+	var baivietxemnhieu = []
+	for (element of keysSorted) {
+		var data = await Tinmoi.findOne({id: element})
+		if (data) {
+			baivietxemnhieu.push(data)	
+		}
+	}	
+
+	
 	// console.log(globalBaivietxemnhieu)
 	res.render('news', {
 		news: news,
@@ -101,7 +138,7 @@ module.exports.getNews = async function (req, res) {
 		allNews: allNews,
 		adminId: adminId,
 		session: session,
-		baivietxemnhieu: globalBaivietxemnhieu
+		baivietxemnhieu: baivietxemnhieu
 	})
 
 }
@@ -216,10 +253,10 @@ module.exports.postNewComment = async function (req, res) {
 	var theloai = await Theloai.findOne({_id: "5ed51a3a31739358f02d0178"})
 	var lengthTheloai = theloai[theloaihientai].length;
 
-	function DoublyLinkedListNode(newComment, newRating, theloai) {
+	function DoublyLinkedListNode(newComment, newRating, theloaihientai) {
 		this.newComment = newComment;
 		this.newRating = newRating;
-		this.theloai = theloai
+		this.theloai = theloaihientai
 		this.next = null;
 		this.prev = null;
 	}
@@ -234,9 +271,9 @@ module.exports.postNewComment = async function (req, res) {
 		return this.size == 0;
 	}
 
-	DoublyLinkedList.prototype.addLast = function (newComment, newRating, theloai) {
+	DoublyLinkedList.prototype.addLast = function (newComment, newRating, theloaihientai) {
 		if (this.tail === null) {
-			this.tail = new DoublyLinkedListNode(newComment, newRating, theloai);
+			this.tail = new DoublyLinkedListNode(newComment, newRating, theloaihientai);
 			this.head = this.tail;
 
 			// cập nhật trong tableTinmoi

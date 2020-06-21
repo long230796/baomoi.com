@@ -221,8 +221,8 @@ block content
 
 
 			each tinmoi in tinmois
-				.components-right(id="componentTinmoi-" + tinmoi.id, data-id=tinmoi.id, name="componentTinmoi-" + tinmoi.id)
-					if (tinmoi.source)
+				if (tinmoi.source)
+					.components-right(id="componentTinmoi-" + tinmoi.id, data-id=tinmoi.id, name="componentTinmoi-" + tinmoi.id)
 						.image(id="imageTinmoi-" + tinmoi.id)
 							a(href=tinmoi.content, target="_blank")
 								img(src=tinmoi.image)

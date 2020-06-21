@@ -102,13 +102,13 @@ function scriptAddNews() {
 	var hashtagAlert = document.getElementsByClassName('hashtagAlert')[0]
 
 
-	if (!title) {
+	if (!title || title.length <= 10) {
 		titleAlert.style.display = "block"
 	} else {
 		titleAlert.style.display = "none"
 	}
 
-	if (!content) {
+	if (!content || content.length <= 100) {
 		contentAlert.style.display = "block"
 	} else {
 		contentAlert.style.display = "none"
@@ -134,7 +134,7 @@ function scriptAddNews() {
 	}
 
 	
-	if (title && content && hashtag.charAt(0) == "#" && addImage) {
+	if (title && content && hashtag.charAt(0) == "#" && addImage && title.length >= 10 && content.length >= 100) {
 		var checkCode = prompt('please enter secret code', 'code here')
 		if (checkCode != null) {
 			if ( checkCode == "demo") {

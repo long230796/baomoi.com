@@ -87,7 +87,7 @@ module.exports.postLogin = async function(req, res) {
 		}
 
 		
-		if (adminName.password == password) {  // đã tìm được
+		if (adminName.password == node.password) {  // đã tìm được
 			res.cookie('adminId', adminName._id, {
 				signed: true,
 			}, {expires: new Date(5000 + Date.now())});
